@@ -18,6 +18,7 @@ namespace WindowsFormsApplication2
         public Form1()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
             Plt = new Plateau(this);
             IM = new ImagesManager(this);
         }
