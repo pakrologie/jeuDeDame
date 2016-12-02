@@ -34,6 +34,7 @@ namespace WindowsFormsApplication2
             public PictureBox pb;
             public bool pawnExist;
             public bool pawnTop;
+            public bool king;
         }
 
         public void remplirPlateau()
@@ -103,7 +104,7 @@ namespace WindowsFormsApplication2
 
                 countRec = countHorizontal * countVertical;
 
-                for (int x = 0; x < countHorizontal; x++)
+                for (int x = 0; x < countHorizontal; x++) // Récupère les rectangles
                 {
                     for (int y = 0; y < countVertical; y++)
                     {
@@ -112,7 +113,7 @@ namespace WindowsFormsApplication2
                     }
                 }
 
-                for (int x = 0; x < plateauCases.Length; x++)
+                for (int x = 0; x < plateauCases.Length; x++) // Colorie les cases
                 {
                     for (int y = 0; y < plateauCases[x].Length; y++)
                     {
@@ -129,6 +130,7 @@ namespace WindowsFormsApplication2
 
         public static void MouseClickForm1(MouseEventArgs e, Graphics g)
         {
+            // Useless
             int x = e.X / recHeight;
             int y = e.Y / recWidth;
 

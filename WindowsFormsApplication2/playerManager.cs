@@ -18,7 +18,7 @@ namespace WindowsFormsApplication2
             Joueur1.infos.gameTour = true;
             Joueur1.infos.playerTop = true;
             Joueur1.infos.bigPawnAlive = 0;
-            
+
             Joueur2 = new Joueur();
             Joueur2.infos.pawnAlive = pawnCount;
             Joueur2.infos.gameTour = false;
@@ -33,6 +33,15 @@ namespace WindowsFormsApplication2
                 return Joueur1;
             }
             return Joueur2;
+        }
+
+        public static Joueur GetOpponent(Joueur Player)
+        {
+            if (Player == Joueur1)
+            {
+                return Joueur2;
+            }
+            return Joueur1;
         }
     }
 }

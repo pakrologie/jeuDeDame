@@ -15,6 +15,6 @@ namespace WindowsFormsApplication2
             public short bigPawnAlive;
             public bool playerTop;
         }
-         public Infos infos;
+        public Infos infos;
     }
 }
