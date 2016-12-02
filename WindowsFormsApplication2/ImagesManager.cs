@@ -15,6 +15,29 @@ namespace WindowsFormsApplication2
         int xSelected = -1;
         int ySelected = -1;
 
+        public static Control FindControlAtPoint(Control container, Point pos)
+        {
+            Control child;
+            foreach (Control c in container.Controls)
+            {
+                if (c.Visible && c.Bounds.Contains(pos))
+                {
+                    child = FindControlAtPoint(c, new Point(pos.X - c.Left, pos.Y - c.Top));
+                    if (child == null) return c;
+                    else return child;
+                }
+            }
+            return null;
+        }
+
+        public static Control FindControlAtCursor(Form form)
+        {
+            Point pos = Cursor.Position;
+            if (form.Bounds.Contains(pos))
+                return FindControlAtPoint(form, form.PointToClient(pos));
+            return null;
+        }
+
         public ImagesManager(Form _formMain)
         {
             formMain = _formMain;
@@ -22,26 +45,35 @@ namespace WindowsFormsApplication2
 
         private void pawnDown(object sender, MouseEventArgs e)
         {
+            Joueur Player = playerManager.WhosNext();
 
             PictureBox pawn = (PictureBox)sender;
 
             xSelected = pawn.Location.X / 50;
             ySelected = pawn.Location.Y / 50;
 
+            if (Player.infos.playerTop != Plateau.plateauCases[ySelected][xSelected].pawnTop)
+            {
+                MessageBox.Show("Ce n'est pas vos pions !");
+                return;
+            }
         }
 
         private void pawnUp(object sender, MouseEventArgs e)
         {
-            int xMouse = Cursor.Position.X / 50;
-            int yMouse = Cursor.Position.Y / 50;
+            try
+            {
+                Control controlObject = FindControlAtCursor(formMain);
 
-            PictureBox pawn = (PictureBox)sender;
+                int x = controlObject.Location.X / 50;
+                int y = controlObject.Location.Y / 50;
 
-            int x = pawn.Location.X / 50;
-            int y = pawn.Location.Y / 50;
-            //pawnMoving(x, y);
-            MessageBox.Show("x = " + xMouse + " - y = " + yMouse);
-           // MessageBox.Show("xSe = " + xSelected + " - ySe = " + ySelected);
+                pawnMoving(x, y);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Vous ne pouvez pas vous déplacer sur une case blanche");
+            }
         }
 
         public void createPictureBox()
@@ -96,12 +128,6 @@ namespace WindowsFormsApplication2
         {
             Joueur Player = playerManager.WhosNext();
             Joueur Opponent = playerManager.GetOpponent(Player);
-
-            if (Player.infos.playerTop != Plateau.plateauCases[y][x].pawnTop)
-            {
-                MessageBox.Show("Ce n'est pas vos pions !");
-                return;
-            }
             
             if (x == xSelected && y == ySelected) // " Second clic "
             {
