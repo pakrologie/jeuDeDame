@@ -10,7 +10,7 @@ namespace WindowsFormsApplication2
 {
     class ImagesManager
     {
-        static Form formMain;
+        static Panel formMain;
 
         int xSelected = -1;
         int ySelected = -1;
@@ -41,7 +41,7 @@ namespace WindowsFormsApplication2
             Joueur Player = playerManager.WhosNext();
             try
             {
-                Control controlObject = FindControlAtCursor(formMain);
+                Control controlObject = FindControlAtCursor(formMain.FindForm());
 
                 int x = controlObject.Location.X / 50;
                 int y = controlObject.Location.Y / 50;
@@ -220,7 +220,7 @@ namespace WindowsFormsApplication2
             return null;
         }
 
-        public ImagesManager(Form _formMain)
+        public ImagesManager(Panel _formMain)
         {
             formMain = _formMain;
         }

@@ -20,9 +20,9 @@ namespace WindowsFormsApplication2
         public static bool boardCreated = false;
 
         public static cases[][] plateauCases = new cases[casesCount][];
-        Form mainForm;
+        Panel mainForm;
 
-        public Plateau(Form _mainForm)
+        public Plateau(Panel _mainForm)
         {
             mainForm = _mainForm;
         }
