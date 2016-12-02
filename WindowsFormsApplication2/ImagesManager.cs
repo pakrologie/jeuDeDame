@@ -14,36 +14,8 @@ namespace WindowsFormsApplication2
 
         int xSelected = -1;
         int ySelected = -1;
-
-        public static Control FindControlAtPoint(Control container, Point pos)
-        {
-            Control child;
-            foreach (Control c in container.Controls)
-            {
-                if (c.Visible && c.Bounds.Contains(pos))
-                {
-                    child = FindControlAtPoint(c, new Point(pos.X - c.Left, pos.Y - c.Top));
-                    if (child == null) return c;
-                    else return child;
-                }
-            }
-            return null;
-        }
-
-        public static Control FindControlAtCursor(Form form)
-        {
-            Point pos = Cursor.Position;
-            if (form.Bounds.Contains(pos))
-                return FindControlAtPoint(form, form.PointToClient(pos));
-            return null;
-        }
-
-        public ImagesManager(Form _formMain)
-        {
-            formMain = _formMain;
-        }
-
-        private void pawnDown(object sender, MouseEventArgs e)
+        
+        private void pawnDown(object sender, MouseEventArgs e) // Clic
         {
             Joueur Player = playerManager.WhosNext();
 
@@ -51,16 +23,22 @@ namespace WindowsFormsApplication2
 
             xSelected = pawn.Location.X / 50;
             ySelected = pawn.Location.Y / 50;
-
+            
             if (Player.infos.playerTop != Plateau.plateauCases[ySelected][xSelected].pawnTop)
             {
                 MessageBox.Show("Ce n'est pas vos pions !");
                 return;
             }
+
+            setCase(xSelected, ySelected);
+
+            // Changement de curseur [1]
+
         }
 
-        private void pawnUp(object sender, MouseEventArgs e)
+        private void pawnUp(object sender, MouseEventArgs e) // Relâche
         {
+            Joueur Player = playerManager.WhosNext();
             try
             {
                 Control controlObject = FindControlAtCursor(formMain);
@@ -68,13 +46,21 @@ namespace WindowsFormsApplication2
                 int x = controlObject.Location.X / 50;
                 int y = controlObject.Location.Y / 50;
 
-                pawnMoving(x, y);
+                if (!pawnMoving(x, y))
+                {
+                    setCase(xSelected, ySelected, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
+                }
             }
             catch(Exception ex)
             {
+               
                 MessageBox.Show("Vous ne pouvez pas vous déplacer sur une case blanche");
             }
+           
+            // Changement de curseur [2]
+            
         }
+
 
         public void createPictureBox()
         {
@@ -124,17 +110,20 @@ namespace WindowsFormsApplication2
             }
         }
 
-        public void pawnMoving(int x, int y)
+        public bool pawnMoving(int x, int y)
         {
             Joueur Player = playerManager.WhosNext();
             Joueur Opponent = playerManager.GetOpponent(Player);
             
+            if (Plateau.plateauCases[y][x].pawnExist)
+            {
+                return false;
+            }
+
             if (x == xSelected && y == ySelected) // " Second clic "
             {
-                xSelected = -1;
-                ySelected = -1;
-
                 MessageBox.Show("Choix annulé");
+                return false;
             }
             else if (!Plateau.plateauCases[y][x].pawnExist) // " Second clic "
             {
@@ -143,26 +132,21 @@ namespace WindowsFormsApplication2
                 if (ruleDistance == 0 && !Plateau.plateauCases[y][x].king)
                 {
                     MessageBox.Show("Vous ne pouvez pas faire cela");
-                    return;
+                    return false;
                 }
 
                 // Mise à jour de l'interface
-                Plateau.plateauCases[y][x].pb.Image = Plateau.plateauCases[ySelected][xSelected].pb.Image;
-                Plateau.plateauCases[y][x].pawnExist = true;
-                Plateau.plateauCases[y][x].pawnTop = Plateau.plateauCases[ySelected][xSelected].pawnTop;
-
-                Plateau.plateauCases[ySelected][xSelected].pb.Image = null;
-                Plateau.plateauCases[ySelected][xSelected].pawnExist = false;
-                Plateau.plateauCases[ySelected][xSelected].pawnTop = false;
+                
+                setCase(x, y, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
+                
+                setCase(xSelected, ySelected);
 
                 if (ruleDistance == 2) // Attaque un pion adverse
                 {
                     int x_pawn = Rule.x_pawn;
                     int y_pawn = Rule.y_pawn;
 
-                    Plateau.plateauCases[y_pawn][x_pawn].pb.Image = null;
-                    Plateau.plateauCases[y_pawn][x_pawn].pawnExist = false;
-                    Plateau.plateauCases[y_pawn][x_pawn].pawnTop = false;
+                    setCase(x_pawn, y_pawn);
                 }
 
                 // Mise à jour des informations Joueurs
@@ -186,7 +170,59 @@ namespace WindowsFormsApplication2
                 xSelected = -1;
                 ySelected = -1;
             }
-    
+            return true;
+        }
+
+        public Image getPawnImgByPlayer(Joueur Player, bool ishold = false)
+        {
+            if (Player.infos.playerTop)
+            {
+                if (ishold)
+                {
+                    return new Bitmap("pion_1_hold.png");
+                }
+                return new Bitmap("pion_1.png");
+            }
+            if (ishold)
+            {
+                return new Bitmap("pion_2_hold.png");
+            }
+            return new Bitmap("pion_2.png");
+        }
+
+        public static void setCase(int x, int y, Image imgPawn = null, bool isExist = false, bool isTop = false)
+        {
+            Plateau.plateauCases[y][x].pb.Image = imgPawn;
+            Plateau.plateauCases[y][x].pawnExist = isExist;
+            Plateau.plateauCases[y][x].pawnTop = isTop;
+        }
+
+        public static Control FindControlAtPoint(Control container, Point pos)
+        {
+            Control child;
+            foreach (Control c in container.Controls)
+            {
+                if (c.Visible && c.Bounds.Contains(pos))
+                {
+                    child = FindControlAtPoint(c, new Point(pos.X - c.Left, pos.Y - c.Top));
+                    if (child == null) return c;
+                    else return child;
+                }
+            }
+            return null;
+        }
+
+        public static Control FindControlAtCursor(Form form)
+        {
+            Point pos = Cursor.Position;
+            if (form.Bounds.Contains(pos))
+                return FindControlAtPoint(form, form.PointToClient(pos));
+            return null;
+        }
+
+        public ImagesManager(Form _formMain)
+        {
+            formMain = _formMain;
         }
     }
 }

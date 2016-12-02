@@ -39,8 +39,5 @@ namespace WindowsFormsApplication2
         {
             Plateau.MouseClickForm1(e, this.CreateGraphics());
         }
-
-        //MessageBox.Show(" X = " + e.X + " | Y = " + e.Y);
-
     }
 }
