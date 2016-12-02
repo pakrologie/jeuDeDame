@@ -14,7 +14,7 @@ namespace WindowsFormsApplication2
     {
         ImagesManager IM;
         Plateau Plt;
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace WindowsFormsApplication2
         {
             Plt.remplirPlateau();
         }
-        
+
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Plateau.PaintEventForm1(this.Width, this.Height, e);
@@ -39,5 +39,8 @@ namespace WindowsFormsApplication2
         {
             Plateau.MouseClickForm1(e, this.CreateGraphics());
         }
+
+        //MessageBox.Show(" X = " + e.X + " | Y = " + e.Y);
+
     }
 }

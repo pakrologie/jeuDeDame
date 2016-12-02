@@ -12,9 +12,36 @@ namespace WindowsFormsApplication2
     {
         static Form formMain;
 
+        int xSelected = -1;
+        int ySelected = -1;
+
         public ImagesManager(Form _formMain)
         {
             formMain = _formMain;
+        }
+
+        private void pawnDown(object sender, MouseEventArgs e)
+        {
+
+            PictureBox pawn = (PictureBox)sender;
+
+            xSelected = pawn.Location.X / 50;
+            ySelected = pawn.Location.Y / 50;
+
+        }
+
+        private void pawnUp(object sender, MouseEventArgs e)
+        {
+            int xMouse = Cursor.Position.X / 50;
+            int yMouse = Cursor.Position.Y / 50;
+
+            PictureBox pawn = (PictureBox)sender;
+
+            int x = pawn.Location.X / 50;
+            int y = pawn.Location.Y / 50;
+            //pawnMoving(x, y);
+            MessageBox.Show("x = " + xMouse + " - y = " + yMouse);
+           // MessageBox.Show("xSe = " + xSelected + " - ySe = " + ySelected);
         }
 
         public void createPictureBox()
@@ -36,7 +63,10 @@ namespace WindowsFormsApplication2
                         pb.SizeMode = PictureBoxSizeMode.StretchImage;
                         pb.BackColor = Color.Black;
                         pb.BorderStyle = BorderStyle.None;
-                        pb.Click += new EventHandler(pictureBoxClick);
+                        
+                        pb.MouseDown += pawnDown;
+                        pb.MouseUp += pawnUp;
+
                         Plateau.plateauCases[y][x].pb = pb;
                         Plateau.plateauCases[y][x].king = false;
                         Bitmap img = null;
@@ -62,42 +92,25 @@ namespace WindowsFormsApplication2
             }
         }
 
-        int xSelected = -1;
-        int ySelected = -1;
-        bool pawnSelected = false;
-
-        private void pictureBoxClick(object sender, EventArgs e)
+        public void pawnMoving(int x, int y)
         {
             Joueur Player = playerManager.WhosNext();
             Joueur Opponent = playerManager.GetOpponent(Player);
 
-            var pictureBox = (PictureBox)sender;
-
-            // On inverse les coordonnées
-            int x = pictureBox.Location.X / 50;
-            int y = pictureBox.Location.Y / 50;
-
-            if (!pawnSelected && Plateau.plateauCases[y][x].pawnExist) // " Premier clic "
+            if (Player.infos.playerTop != Plateau.plateauCases[y][x].pawnTop)
             {
-                if (Player.infos.playerTop == Plateau.plateauCases[y][x].pawnTop)
-                {
-                    xSelected = x;
-                    ySelected = y;
-
-                    pawnSelected = true;
-                }
-                else
-                    MessageBox.Show("Ce n'est pas vos pions !");
+                MessageBox.Show("Ce n'est pas vos pions !");
+                return;
             }
-            else if (pawnSelected && x == xSelected && y == ySelected) // " Second clic "
+            
+            if (x == xSelected && y == ySelected) // " Second clic "
             {
-                pawnSelected = false;
                 xSelected = -1;
                 ySelected = -1;
 
                 MessageBox.Show("Choix annulé");
             }
-            else if (pawnSelected && !Plateau.plateauCases[y][x].pawnExist) // " Second clic "
+            else if (!Plateau.plateauCases[y][x].pawnExist) // " Second clic "
             {
                 int ruleDistance = Rule.distanceOk(y, x, ySelected, xSelected, Player.infos.playerTop);
 
@@ -143,11 +156,11 @@ namespace WindowsFormsApplication2
                     Opponent.infos.pawnAlive--;
                     MessageBox.Show("Pion(s) restant(s) = " + Opponent.infos.pawnAlive);
                 }
-
-                pawnSelected = false;
+                
                 xSelected = -1;
                 ySelected = -1;
             }
+    
         }
     }
 }
