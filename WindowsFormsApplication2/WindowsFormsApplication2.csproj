@@ -54,6 +54,18 @@
     </Compile>
     <Compile Include="ImagesManager.cs" />
     <Compile Include="Joueur.cs" />
+    <Compile Include="loginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="loginForm.Designer.cs">
+      <DependentUpon>loginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mainUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mainUI.Designer.cs">
+      <DependentUpon>mainUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Plateau.cs" />
     <Compile Include="playerManager.cs" />
     <Compile Include="Program.cs" />
@@ -61,6 +73,9 @@
     <Compile Include="Rule.cs" />
     <EmbeddedResource Include="gameForm.resx">
       <DependentUpon>gameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mainUI.resx">
+      <DependentUpon>mainUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

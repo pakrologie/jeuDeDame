@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             this.backgroundPanel = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.gamePanel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.backgroundPanel.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +60,59 @@
             this.backgroundPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.backgroundPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseClick);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(529, 572);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(120, 52);
+            this.button5.TabIndex = 9;
+            this.button5.Text = "Envoyer";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(529, 388);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(120, 70);
+            this.button4.TabIndex = 8;
+            this.button4.Text = "Options";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(529, 269);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(120, 70);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "Jcpas";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(529, 149);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(120, 70);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Abandonner";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(529, 40);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(120, 70);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Profil du joueur";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(3, 506);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(497, 135);
+            this.richTextBox1.TabIndex = 4;
+            this.richTextBox1.Text = "=> A vous de jouer.";
+            // 
             // gamePanel
             // 
             this.gamePanel.Location = new System.Drawing.Point(0, 0);
@@ -70,20 +124,13 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.textBox1);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 647);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(684, 23);
             this.panel3.TabIndex = 0;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(3, 506);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(497, 135);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "=> A vous de jouer.";
             // 
             // label1
             // 
@@ -95,65 +142,26 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Version Alpha";
             // 
-            // button1
+            // textBox1
             // 
-            this.button1.Location = new System.Drawing.Point(529, 40);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 70);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Profil du joueur";
-            this.button1.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(3, -2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(497, 20);
+            this.textBox1.TabIndex = 1;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(529, 149);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 70);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Abandonner";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(529, 269);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(120, 70);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Jcpas";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(529, 388);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(120, 70);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "Options";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(529, 572);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(120, 52);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "Envoyer";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // Form1
+            // gameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 670);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.backgroundPanel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "gameForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "DamesOnline | Player : Bilal - LVL : 100";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
@@ -176,6 +184,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
