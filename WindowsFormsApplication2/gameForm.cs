@@ -15,6 +15,8 @@ namespace WindowsFormsApplication2
         ImagesManager IM;
         Plateau Plt;
 
+        public bool boardCreated = false;
+
         public gameForm()
         {
             InitializeComponent();
@@ -27,37 +29,16 @@ namespace WindowsFormsApplication2
         {
             Plt.remplirPlateau();
         }
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-           
-        }
-
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
-        {
-            
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            
-        }
-
-        private void panel1_MouseClick(object sender, MouseEventArgs e)
-        {
-           
-        }
-
+        
         private void gamePanel_Paint(object sender, PaintEventArgs e)
         {
-            Plateau.PaintEventForm1(gamePanel.Width, gamePanel.Height, e);
-            IM.createPictureBox();
-            playerManager.createPlayers();
-        }
-
-        private void gamePanel_MouseClick(object sender, MouseEventArgs e)
-        {
-            Plateau.MouseClickForm1(e, gamePanel.CreateGraphics());
+            if (!boardCreated)
+            {
+                Plateau.PaintEventForm1(gamePanel.Width, gamePanel.Height, e);
+                IM.createPictureBox();
+                playerManager.createPlayers();
+                boardCreated = true;
+            }
         }
     }
 }

@@ -17,8 +17,6 @@ namespace WindowsFormsApplication2
         public static int countHorizontal = 0;
         public static int countVertical = 0;
 
-        public static bool boardCreated = false;
-
         public static cases[][] plateauCases = new cases[casesCount][];
         Panel mainForm;
 
@@ -81,60 +79,48 @@ namespace WindowsFormsApplication2
 
         public static void PaintEventForm1(int width, int height, PaintEventArgs e)
         {
-            if (!boardCreated)
+
+            int countRec = 0;
+            int formWidth = width;
+            int formHeight = height;
+            int penWidth = 1;
+
+            Pen myPen = new Pen(new SolidBrush(Color.Black), penWidth);
+
+            for (int i = recHeight; i <= formHeight; i += recHeight) //dessine les lignes horizontales
             {
-                int countRec = 0;
-                int formWidth = width;
-                int formHeight = height;
-                int penWidth = 1;
+                e.Graphics.DrawLine(myPen, 0, i, formWidth, i);
+                countHorizontal++;
+            }
 
-                Pen myPen = new Pen(new SolidBrush(Color.Black), penWidth);
+            for (int i = recWidth; i <= formWidth; i += recWidth) //dessine les lignes verticales
+            {
+                e.Graphics.DrawLine(myPen, i, 0, i, formHeight);
+                countVertical++;
+            }
 
-                for (int i = recHeight; i <= formHeight; i += recHeight) //dessine les lignes horizontales
+            countRec = countHorizontal * countVertical;
+
+            for (int x = 0; x < countHorizontal; x++) // Récupère les rectangles
+            {
+                for (int y = 0; y < countVertical; y++)
                 {
-                    e.Graphics.DrawLine(myPen, 0, i, formWidth, i);
-                    countHorizontal++;
+                    Rectangle newRec = new Rectangle(recHeight * y, recWidth * x, recWidth, recHeight);
+                    plateauCases[x][y].Rec = newRec;
                 }
+            }
 
-                for (int i = recWidth; i <= formWidth; i += recWidth) //dessine les lignes verticales
+            for (int x = 0; x < plateauCases.Length; x++) // Colorie les cases
+            {
+                for (int y = 0; y < plateauCases[x].Length; y++)
                 {
-                    e.Graphics.DrawLine(myPen, i, 0, i, formHeight);
-                    countVertical++;
-                }
-
-                countRec = countHorizontal * countVertical;
-
-                for (int x = 0; x < countHorizontal; x++) // Récupère les rectangles
-                {
-                    for (int y = 0; y < countVertical; y++)
+                    if (plateauCases[x][y].isBlack)
                     {
-                        Rectangle newRec = new Rectangle(recHeight * y, recWidth * x, recWidth, recHeight);
-                        plateauCases[x][y].Rec = newRec;
+                        e.Graphics.FillRectangle(new SolidBrush(Color.Black), plateauCases[x][y].Rec);
                     }
                 }
-
-                for (int x = 0; x < plateauCases.Length; x++) // Colorie les cases
-                {
-                    for (int y = 0; y < plateauCases[x].Length; y++)
-                    {
-                        if (plateauCases[x][y].isBlack)
-                        {
-                            e.Graphics.FillRectangle(new SolidBrush(Color.Black), plateauCases[x][y].Rec);
-                        }
-                    }
-                }
-
-                boardCreated = true;
             }
         }
 
-        public static void MouseClickForm1(MouseEventArgs e, Graphics g)
-        {
-            // Useless
-            int x = e.X / recHeight;
-            int y = e.Y / recWidth;
-
-            MessageBox.Show("Coordonnée de la case : x = " + x + " et y = " + y);
-        }
     }
 }
