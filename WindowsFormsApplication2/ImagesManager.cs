@@ -53,7 +53,7 @@ namespace WindowsFormsApplication2
             }
             catch(Exception ex)
             {
-               
+                setCase(xSelected, ySelected, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
                 MessageBox.Show("Vous ne pouvez pas vous déplacer sur une case blanche");
             }
            
