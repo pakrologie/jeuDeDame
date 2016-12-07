@@ -110,6 +110,30 @@
   <ItemGroup>
     <None Include="Resources\Globe_52px.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User_48px_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Plus Math_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Recurring Appointment_48px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flag 2_40px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Speech Bubble_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_52px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Left_52px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

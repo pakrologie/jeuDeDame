@@ -118,10 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Damier sans pions" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Damier sans pions.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Flag 2_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag 2_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Settings_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Delete_52px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete_52px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Globe_52px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Globe_52px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="User_48px_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User_48px_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Damier sans pions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Damier sans pions.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Recurring Appointment_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Recurring Appointment_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Plus Math_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Plus Math_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Speech Bubble_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Speech Bubble_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Left_52px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Left_52px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
