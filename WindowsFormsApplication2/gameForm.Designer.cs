@@ -65,6 +65,8 @@
             this.bunifuSeparator3 = new ns1.BunifuSeparator();
             this.bunifuSeparator2 = new ns1.BunifuSeparator();
             this.bunifuElipse1 = new ns1.BunifuElipse(this.components);
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.backgroundPanel.SuspendLayout();
             this.rightPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -74,6 +76,8 @@
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // backgroundPanel
@@ -90,6 +94,8 @@
             // rightPanel
             // 
             this.rightPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.rightPanel.Controls.Add(this.pictureBox3);
+            this.rightPanel.Controls.Add(this.pictureBox2);
             this.rightPanel.Controls.Add(this.bunifuThinButton21);
             this.rightPanel.Controls.Add(this.listBox1);
             this.rightPanel.Controls.Add(this.label3);
@@ -141,9 +147,9 @@
             "JeanPierre",
             "Mael Mamel",
             "Bilal"});
-            this.listBox1.Location = new System.Drawing.Point(9, 67);
+            this.listBox1.Location = new System.Drawing.Point(9, 88);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(167, 546);
+            this.listBox1.Size = new System.Drawing.Size(167, 525);
             this.listBox1.TabIndex = 32;
             this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
             this.listBox1.MouseLeave += new System.EventHandler(this.listBox1_MouseLeave);
@@ -154,7 +160,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(9, 19);
+            this.label3.Location = new System.Drawing.Point(9, 37);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 24);
             this.label3.TabIndex = 30;
@@ -165,7 +171,7 @@
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(13, 40);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(13, 58);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(125, 35);
             this.bunifuSeparator1.TabIndex = 31;
@@ -204,6 +210,7 @@
             // 
             // gamePanel
             // 
+            this.gamePanel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.gamePanel.Location = new System.Drawing.Point(3, 3);
             this.gamePanel.Name = "gamePanel";
             this.gamePanel.Size = new System.Drawing.Size(500, 500);
@@ -801,6 +808,30 @@
             this.bunifuElipse1.ElipseRadius = 15;
             this.bunifuElipse1.TargetControl = this;
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox3.Image = global::WindowsFormsApplication2.Properties.Resources.Minus_48px;
+            this.pictureBox3.Location = new System.Drawing.Point(108, 3);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(34, 26);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 41;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox2.Image = global::WindowsFormsApplication2.Properties.Resources.Delete_52px1;
+            this.pictureBox2.Location = new System.Drawing.Point(148, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(34, 26);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 40;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
             // gameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -828,6 +859,8 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -869,6 +902,8 @@
         private ns1.BunifuSeparator bunifuSeparator4;
         private ns1.BunifuFlatButton bunifuFlatButton13;
         private ns1.BunifuFlatButton bunifuFlatButton7;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 
