@@ -144,6 +144,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(167, 546);
             this.listBox1.TabIndex = 32;
+            this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
             // 
             // label3
             // 
@@ -451,7 +452,7 @@
             this.bunifuFlatButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(240)))));
             this.bunifuFlatButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bunifuFlatButton3.BorderRadius = 0;
-            this.bunifuFlatButton3.ButtonText = "Quitter";
+            this.bunifuFlatButton3.ButtonText = " Quitter";
             this.bunifuFlatButton3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bunifuFlatButton3.DisabledColor = System.Drawing.Color.Gray;
             this.bunifuFlatButton3.Iconcolor = System.Drawing.Color.Transparent;
@@ -474,7 +475,7 @@
             this.bunifuFlatButton3.selected = false;
             this.bunifuFlatButton3.Size = new System.Drawing.Size(215, 37);
             this.bunifuFlatButton3.TabIndex = 26;
-            this.bunifuFlatButton3.Text = "Quitter";
+            this.bunifuFlatButton3.Text = " Quitter";
             this.bunifuFlatButton3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bunifuFlatButton3.Textcolor = System.Drawing.Color.White;
             this.bunifuFlatButton3.TextFont = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -486,7 +487,7 @@
             this.bunifuFlatButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(240)))));
             this.bunifuFlatButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bunifuFlatButton4.BorderRadius = 0;
-            this.bunifuFlatButton4.ButtonText = "Options";
+            this.bunifuFlatButton4.ButtonText = " Options";
             this.bunifuFlatButton4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bunifuFlatButton4.DisabledColor = System.Drawing.Color.Gray;
             this.bunifuFlatButton4.Iconcolor = System.Drawing.Color.Transparent;
@@ -509,7 +510,7 @@
             this.bunifuFlatButton4.selected = false;
             this.bunifuFlatButton4.Size = new System.Drawing.Size(215, 37);
             this.bunifuFlatButton4.TabIndex = 25;
-            this.bunifuFlatButton4.Text = "Options";
+            this.bunifuFlatButton4.Text = " Options";
             this.bunifuFlatButton4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bunifuFlatButton4.Textcolor = System.Drawing.Color.White;
             this.bunifuFlatButton4.TextFont = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
