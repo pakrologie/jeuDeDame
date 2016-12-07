@@ -61,7 +61,6 @@ namespace WindowsFormsApplication2
             
         }
 
-
         public void createPictureBox()
         {
             for (int y = 0; y < Plateau.countHorizontal; y++)
@@ -149,17 +148,10 @@ namespace WindowsFormsApplication2
                     setCase(x_pawn, y_pawn);
                 }
 
+                Rule.checkJumpingNotPlayed(Player, x, y);
+
                 // Mise à jour des informations Joueurs
-                if (playerManager.Joueur1 == Player)
-                {
-                    playerManager.Joueur1.infos.gameTour = false;
-                    playerManager.Joueur2.infos.gameTour = true;
-                }
-                else
-                {
-                    playerManager.Joueur1.infos.gameTour = true;
-                    playerManager.Joueur2.infos.gameTour = false;
-                }
+                playerManager.ChangeGameTurn(Player);
 
                 if (ruleDistance == 2)
                 {
@@ -220,7 +212,7 @@ namespace WindowsFormsApplication2
             return null;
         }
 
-        public ImagesManager(Panel _formMain)
+        public ImagesManager(Panel _formMain) // constructeur
         {
             formMain = _formMain;
         }

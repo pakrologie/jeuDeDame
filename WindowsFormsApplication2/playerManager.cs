@@ -26,6 +26,20 @@ namespace WindowsFormsApplication2
             Joueur2.infos.bigPawnAlive = 0;
         }
 
+        public static void ChangeGameTurn(Joueur isPlaying)
+        {
+            if (playerManager.Joueur1 == isPlaying)
+            {
+                playerManager.Joueur1.infos.gameTour = false;
+                playerManager.Joueur2.infos.gameTour = true;
+            }
+            else
+            {
+                playerManager.Joueur1.infos.gameTour = true;
+                playerManager.Joueur2.infos.gameTour = false;
+            }
+        }
+
         public static Joueur WhosNext()
         {
             if (Joueur1.infos.gameTour)

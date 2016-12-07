@@ -159,6 +159,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DamesOnline | Player : Bilal - LVL : 100";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.gameForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.backgroundPanel.ResumeLayout(false);
             this.panel3.ResumeLayout(false);

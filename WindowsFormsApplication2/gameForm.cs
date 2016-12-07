@@ -40,5 +40,10 @@ namespace WindowsFormsApplication2
                 boardCreated = true;
             }
         }
+
+        private void gameForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
