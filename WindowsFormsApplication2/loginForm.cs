@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ns1;
 
 namespace WindowsFormsApplication2
 {
     public partial class loginForm : Form
     {
+        ns1.Drag MF = new Drag();
         private string password = string.Empty;
         public loginForm()
         {
@@ -70,6 +72,22 @@ namespace WindowsFormsApplication2
                 e.Handled = e.SuppressKeyPress = true;
                 
             }
+        }
+
+        private void backgroundPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            MF.Grab(this);
+        }
+
+        private void backgroundPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            MF.Release();
+        }
+
+        private void backgroundPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            MF.MoveObject();
         }
     }
 }

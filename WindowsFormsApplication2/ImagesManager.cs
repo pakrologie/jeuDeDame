@@ -155,9 +155,15 @@ namespace WindowsFormsApplication2
 
                 if (ruleDistance == 2) // Attaque un pion adverse
                 {
+                   
                     int x_pawn = Rule.x_pawn;
                     int y_pawn = Rule.y_pawn;
 
+                    Plateau.plateauCases[y][x].pb.Visible = false;
+                    BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
+                    transition.AnimationType = BunifuAnimatorNS.AnimationType.Particles;
+                    transition.Interval = 10;
+                    transition.ShowSync(Plateau.plateauCases[y][x].pb);
                     setCase(x_pawn, y_pawn);
 
                     Opponent.infos.pawnAlive--;
