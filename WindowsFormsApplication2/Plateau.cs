@@ -34,6 +34,7 @@ namespace WindowsFormsApplication2
             public bool pawnTop;
             public bool king;
             public bool isnotcareful;
+            public bool mainCombo;
         }
 
         public void remplirPlateau()

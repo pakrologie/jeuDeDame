@@ -14,6 +14,7 @@ namespace WindowsFormsApplication2
             public short pawnAlive;
             public short bigPawnAlive;
             public bool playerTop;
+            public bool iscombo;
         }
         public Infos infos;
     }

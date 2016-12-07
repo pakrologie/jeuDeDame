@@ -37,5 +37,61 @@ namespace WindowsFormsApplication2
                 }
             }
         }
+
+        public static bool detectCanEat(Joueur Player, int x, int y)
+        {
+            bool playerTop = Player.infos.playerTop;
+
+            for (int y1 = 0; y1 < Plateau.plateauCases.Length; y1++)
+            {
+                for (int x1 = 0; x1 < Plateau.plateauCases[y1].Length; x1++)
+                {
+                    if (Plateau.plateauCases[y1][x1].pawnTop != playerTop &&
+                        Plateau.plateauCases[y1][x1].pawnExist)
+                    {
+                        int distance = Rule.getDistance(y, x, y1, x1);
+                        if (distance == 1)
+                        {
+                            int countDiff = -2;
+
+                            if (y < y1)
+                            {
+                                countDiff = 2;
+                            }
+
+                            if ((x + countDiff) <= 9 && (y + countDiff) <= 9 &&
+                                (x + countDiff) >= 0 && (y + countDiff) >= 0)
+                            {
+                                if (!Plateau.plateauCases[y + countDiff][x + countDiff].pawnExist)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static Plateau.cases getComboMain(Joueur Player)
+        {
+            bool playerTop = Player.infos.playerTop;
+            for (int y = 0; y < Plateau.plateauCases.Length; y++)
+            {
+                for (int x = 0; x < Plateau.plateauCases[y].Length; x++)
+                {
+                    if (Plateau.plateauCases[y][x].pawnTop == Player.infos.playerTop &&
+                        Plateau.plateauCases[y][x].pawnExist)
+                    {
+                        if (Plateau.plateauCases[y][x].mainCombo)
+                        {
+                            return Plateau.plateauCases[y][x];
+                        }
+                    }
+                }
+            }
+            return new Plateau.cases();
+        }
     }
 }

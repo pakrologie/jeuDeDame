@@ -34,6 +34,15 @@ namespace WindowsFormsApplication2
                     return;
                 }
 
+                if (Player.infos.iscombo)
+                {
+                    if (!Plateau.plateauCases[ySelected][xSelected].mainCombo)
+                    {
+                        MessageBox.Show("Vous ne pouvez jouer que le pion 'combo' ");
+                        return;
+                    }
+                }
+                
                 setCase(xSelected, ySelected);
                 onClick = true;
                 // Changement de curseur [1]
@@ -150,6 +159,20 @@ namespace WindowsFormsApplication2
                     int y_pawn = Rule.y_pawn;
 
                     setCase(x_pawn, y_pawn);
+
+                    Opponent.infos.pawnAlive--;
+                    MessageBox.Show("Pion(s) restant(s) = " + Opponent.infos.pawnAlive);
+
+                    if (RuleAdvanced.detectCanEat(Player, x, y))
+                    {
+                        Player.infos.iscombo = true;
+                        Plateau.plateauCases[y][x].mainCombo = true;
+                        return true;
+                    }else
+                    {
+                        Player.infos.iscombo = false;
+                        Plateau.plateauCases[y][x].mainCombo = false;
+                    }
                 }
 
                 RuleAdvanced.resetNotCarefulOpponent(Opponent);
@@ -157,12 +180,6 @@ namespace WindowsFormsApplication2
 
                 // Mise à jour des informations Joueurs
                 playerManager.ChangeGameTurn(Player);
-
-                if (ruleDistance == 2)
-                {
-                    Opponent.infos.pawnAlive--;
-                    MessageBox.Show("Pion(s) restant(s) = " + Opponent.infos.pawnAlive);
-                }
 
                 xSelected = -1;
                 ySelected = -1;
