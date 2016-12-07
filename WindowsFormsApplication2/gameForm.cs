@@ -152,5 +152,15 @@ namespace WindowsFormsApplication2
         {
             listBox1.SelectedItem = null;
         }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
     }
 }

@@ -47,6 +47,7 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.bunifuMetroTextbox2 = new ns1.BunifuMetroTextbox();
             this.bunifuElipse2 = new ns1.BunifuElipse(this.components);
+            this.bunifuDragControl1 = new ns1.BunifuDragControl(this.components);
             this.backgroundPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -287,6 +288,13 @@
             this.bunifuElipse2.ElipseRadius = 17;
             this.bunifuElipse2.TargetControl = this.panel1;
             // 
+            // bunifuDragControl1
+            // 
+            this.bunifuDragControl1.Fixed = false;
+            this.bunifuDragControl1.Horizontal = true;
+            this.bunifuDragControl1.TargetControl = this.backgroundPanel;
+            this.bunifuDragControl1.Vertical = true;
+            // 
             // loginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -331,5 +339,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox4;
         private ns1.BunifuMetroTextbox bunifuMetroTextbox2;
+        private ns1.BunifuDragControl bunifuDragControl1;
     }
 }
