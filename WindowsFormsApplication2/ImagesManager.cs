@@ -149,19 +149,37 @@ namespace WindowsFormsApplication2
 
                 // Mise à jour de l'interface
 
+                Plateau.plateauCases[y][x].pb.Visible = false;
+                BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
+                transition.AnimationType = BunifuAnimatorNS.AnimationType.Transparent;
+                transition.Interval = 10;
+                transition.ShowSync(Plateau.plateauCases[y][x].pb);
+
                 setCase(x, y, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
 
                 setCase(xSelected, ySelected);
+
+                System.Threading.Thread.Sleep(200);
+                Plateau.plateauCases[y][x].pb.Visible = true;
 
                 if (ruleDistance == 2) // Attaque un pion adverse
                 {
                     int x_pawn = Rule.x_pawn;
                     int y_pawn = Rule.y_pawn;
 
+                    Plateau.plateauCases[y_pawn][x_pawn].pb.Visible = false;
+                    transition = new BunifuAnimatorNS.BunifuTransition();
+                    transition.AnimationType = BunifuAnimatorNS.AnimationType.Particles;
+                    transition.Interval = 10;
+                    transition.ShowSync(Plateau.plateauCases[y][x].pb);
+
                     setCase(x_pawn, y_pawn);
+                    
 
                     Opponent.infos.pawnAlive--;
-                    MessageBox.Show("Pion(s) restant(s) = " + Opponent.infos.pawnAlive);
+                   // MessageBox.Show("Pion(s) restant(s) = " + Opponent.infos.pawnAlive);
+                    System.Threading.Thread.Sleep(200);
+                    Plateau.plateauCases[y_pawn][x_pawn].pb.Visible = true;
 
                     if (RuleAdvanced.detectCanEat(Player, x, y))
                     {
