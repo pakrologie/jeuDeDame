@@ -15,29 +15,34 @@ namespace WindowsFormsApplication2
         int xSelected = -1;
         int ySelected = -1;
 
+        bool onClick = false;
+
         private void pawnDown(object sender, MouseEventArgs e) // Clic
         {
-            Joueur Player = playerManager.WhosNext();
-
-            PictureBox pawn = (PictureBox)sender;
-
-            xSelected = pawn.Location.X / 50;
-            ySelected = pawn.Location.Y / 50;
-
-            if (Player.infos.playerTop != Plateau.plateauCases[ySelected][xSelected].pawnTop)
+            if (!onClick)
             {
-                RuleAdvanced.isNotCareful(ySelected, xSelected);
-                return;
+                Joueur Player = playerManager.WhosNext();
+
+                PictureBox pawn = (PictureBox)sender;
+
+                xSelected = pawn.Location.X / 50;
+                ySelected = pawn.Location.Y / 50;
+
+                if (Player.infos.playerTop != Plateau.plateauCases[ySelected][xSelected].pawnTop)
+                {
+                    RuleAdvanced.isNotCareful(ySelected, xSelected);
+                    return;
+                }
+
+                setCase(xSelected, ySelected);
+                onClick = true;
+                // Changement de curseur [1]
             }
-
-            setCase(xSelected, ySelected);
-
-            // Changement de curseur [1]
-
         }
 
         private void pawnUp(object sender, MouseEventArgs e) // Relâche
         {
+            onClick = false;
             Joueur Player = playerManager.WhosNext();
             try
             {
@@ -58,7 +63,6 @@ namespace WindowsFormsApplication2
             }
 
             // Changement de curseur [2]
-
         }
 
         public void createPictureBox()
