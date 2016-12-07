@@ -18,14 +18,6 @@ namespace WindowsFormsApplication2
 
             if (distance == 3)
             {
-                if (playerTop)
-                {
-                    if (y1 - y2 != 2)
-                        return 0;
-                }
-                else
-                if (y2 - y1 != 2)
-                    return 0;
 
                 string[] infoPawn = canAtk(y1, x1, y2, x2, playerTop).Split(' ');
 
@@ -95,15 +87,7 @@ namespace WindowsFormsApplication2
                                 {
                                     int distance = getDistance(y1, x1, y2, x2);
                                     if (distance == 1)
-                                    {
-                                        if (playerTop)
-                                        {
-                                            if (y2 - y1 != 1)
-                                                break;
-                                        }
-                                        else
-                                         if (y1 - y2 != 1)
-                                            break;
+                                    { 
                                         if ((x1 + 2) <= 9 && (y1 + 2) <= 9)
                                         {
                                             int countDiff = 2;
