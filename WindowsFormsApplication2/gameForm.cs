@@ -162,5 +162,27 @@ namespace WindowsFormsApplication2
         {
             Environment.Exit(0);
         }
+
+        private void listBox2_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                e = new DrawItemEventArgs(e.Graphics,
+                                          e.Font,
+                                          e.Bounds,
+                                          e.Index,
+                                          e.State ^ DrawItemState.Selected,
+                                          e.ForeColor,
+                                          Color.FromArgb(0, 187, 255));
+
+            e.DrawBackground();
+            e.Graphics.DrawString(listBox2.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
+            e.DrawFocusRectangle();
+        }
+
+        private void listBox2_MouseLeave(object sender, EventArgs e)
+        {
+            listBox2.SelectedItem = null;
+        }
     }
 }
