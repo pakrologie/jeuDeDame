@@ -76,8 +76,8 @@ namespace WindowsFormsApplication2
                 for (int x1 = 0; x1 < Plateau.plateauCases[y1].Length; x1++)
                 {
                     if (Plateau.plateauCases[y1][x1].pawnTop == playerTop &&
-                        Plateau.plateauCases[y1][x1].pawnExist && (myX != x1 && myY != y1))
-                    {
+                        Plateau.plateauCases[y1][x1].pawnExist && (Plateau.plateauCases[y1][x1].pb != Plateau.plateauCases[myY][myX].pb))
+                    { // TODO : Comparaison .pb à changer
                         for (int y2 = 0; y2 < Plateau.plateauCases.Length; y2++)
                         {
                             for (int x2 = 0; x2 < Plateau.plateauCases[y2].Length; x2++)
@@ -91,9 +91,9 @@ namespace WindowsFormsApplication2
                                         int countDiff = 2;
                                         if (!playerTop)
                                             countDiff = -2;
-
-                                        if ((x1 + countDiff) <= 9 && (y1 + countDiff) <= 9 ||
-                                            (x1 + countDiff) >= 0 && (y1 + countDiff) > 0) 
+                                       
+                                        if ((x1 + countDiff) <= 9 && (y1 + countDiff) <= 9 &&
+                                            (x1 + countDiff) >= 0 && (y1 + countDiff) >= 0) 
                                         {
                                            
                                             if (!Plateau.plateauCases[y1 + countDiff][x1 + countDiff].pawnExist)

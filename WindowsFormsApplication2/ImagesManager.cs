@@ -113,7 +113,7 @@ namespace WindowsFormsApplication2
         {
             Joueur Player = playerManager.WhosNext();
             Joueur Opponent = playerManager.GetOpponent(Player);
-            
+ 
             if (Plateau.plateauCases[y][x].pawnExist)
             {
                 return false;
