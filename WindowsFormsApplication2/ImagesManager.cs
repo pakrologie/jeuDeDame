@@ -14,7 +14,7 @@ namespace WindowsFormsApplication2
 
         int xSelected = -1;
         int ySelected = -1;
-        
+
         private void pawnDown(object sender, MouseEventArgs e) // Clic
         {
             Joueur Player = playerManager.WhosNext();
@@ -23,10 +23,10 @@ namespace WindowsFormsApplication2
 
             xSelected = pawn.Location.X / 50;
             ySelected = pawn.Location.Y / 50;
-            
+
             if (Player.infos.playerTop != Plateau.plateauCases[ySelected][xSelected].pawnTop)
             {
-                MessageBox.Show("Ce n'est pas vos pions !");
+                RuleAdvanced.isNotCareful(ySelected, xSelected);
                 return;
             }
 
@@ -51,14 +51,14 @@ namespace WindowsFormsApplication2
                     setCase(xSelected, ySelected, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 setCase(xSelected, ySelected, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
                 MessageBox.Show("Vous ne pouvez pas vous déplacer sur une case blanche");
             }
-           
+
             // Changement de curseur [2]
-            
+
         }
 
         public void createPictureBox()
@@ -80,7 +80,7 @@ namespace WindowsFormsApplication2
                         pb.SizeMode = PictureBoxSizeMode.StretchImage;
                         pb.BackColor = Color.Black;
                         pb.BorderStyle = BorderStyle.None;
-                        
+
                         pb.MouseDown += pawnDown;
                         pb.MouseUp += pawnUp;
 
@@ -113,18 +113,18 @@ namespace WindowsFormsApplication2
         {
             Joueur Player = playerManager.WhosNext();
             Joueur Opponent = playerManager.GetOpponent(Player);
- 
+
             if (Plateau.plateauCases[y][x].pawnExist)
             {
                 return false;
             }
 
-            if (x == xSelected && y == ySelected) // " Second clic "
+            if (x == xSelected && y == ySelected)
             {
                 MessageBox.Show("Choix annulé");
                 return false;
             }
-            else if (!Plateau.plateauCases[y][x].pawnExist) // " Second clic "
+            else if (!Plateau.plateauCases[y][x].pawnExist)
             {
                 int ruleDistance = Rule.distanceOk(y, x, ySelected, xSelected, Player.infos.playerTop);
 
@@ -135,9 +135,9 @@ namespace WindowsFormsApplication2
                 }
 
                 // Mise à jour de l'interface
-                
+
                 setCase(x, y, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
-                
+
                 setCase(xSelected, ySelected);
 
                 if (ruleDistance == 2) // Attaque un pion adverse
@@ -148,6 +148,7 @@ namespace WindowsFormsApplication2
                     setCase(x_pawn, y_pawn);
                 }
 
+                RuleAdvanced.resetNotCarefulOpponent(Opponent);
                 Rule.checkJumpingNotPlayed(Player, x, y);
 
                 // Mise à jour des informations Joueurs
@@ -158,7 +159,7 @@ namespace WindowsFormsApplication2
                     Opponent.infos.pawnAlive--;
                     MessageBox.Show("Pion(s) restant(s) = " + Opponent.infos.pawnAlive);
                 }
-                
+
                 xSelected = -1;
                 ySelected = -1;
             }

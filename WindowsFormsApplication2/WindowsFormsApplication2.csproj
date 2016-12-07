@@ -99,6 +99,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rule.cs" />
+    <Compile Include="RuleAdvanced.cs" />
     <EmbeddedResource Include="gameForm.resx">
       <DependentUpon>gameForm.cs</DependentUpon>
     </EmbeddedResource>

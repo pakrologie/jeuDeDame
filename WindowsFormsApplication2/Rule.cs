@@ -23,7 +23,7 @@ namespace WindowsFormsApplication2
 
                 if (infoPawn.Length != 2)
                     return 0;
-                
+
                 y_pawn = Convert.ToInt32(infoPawn[0]);
                 x_pawn = Convert.ToInt32(infoPawn[1]);
                 return 2;
@@ -88,17 +88,19 @@ namespace WindowsFormsApplication2
                                     int distance = getDistance(y1, x1, y2, x2);
                                     if (distance == 1)
                                     {
-                                        int countDiff = 2;
-                                        if (!playerTop)
-                                            countDiff = -2;
-                                       
-                                        if ((x1 + countDiff) <= 9 && (y1 + countDiff) <= 9 &&
-                                            (x1 + countDiff) >= 0 && (y1 + countDiff) >= 0) 
+                                        int countDiff = -2;
+
+                                        if (y1 < y2)
                                         {
-                                           
+                                            countDiff = 2;
+                                        }
+
+                                        if ((x1 + countDiff) <= 9 && (y1 + countDiff) <= 9 &&
+                                            (x1 + countDiff) >= 0 && (y1 + countDiff) >= 0)
+                                        {
                                             if (!Plateau.plateauCases[y1 + countDiff][x1 + countDiff].pawnExist)
                                             {
-                                                MessageBox.Show("Sauté n'est pas joué détecté");
+                                                Plateau.plateauCases[y1][x1].isnotcareful = true;
                                             }
                                         }
                                     }

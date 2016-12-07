@@ -33,6 +33,7 @@ namespace WindowsFormsApplication2
             public bool pawnExist;
             public bool pawnTop;
             public bool king;
+            public bool isnotcareful;
         }
 
         public void remplirPlateau()
@@ -41,7 +42,7 @@ namespace WindowsFormsApplication2
             int index = 0;
             int index_plateau = 0;
             int[] ligne = new int[casesCount];
-            
+
             for (int i = 0; i < (casesCount * casesCount); i++)
             {
                 int loca = i + 1;
