@@ -224,9 +224,17 @@ namespace WindowsFormsApplication2
 
         public static void setCase(int x, int y, Image imgPawn = null, bool isExist = false, bool isTop = false)
         {
-            Plateau.plateauCases[y][x].pb.Image = imgPawn;
-            Plateau.plateauCases[y][x].pawnExist = isExist;
-            Plateau.plateauCases[y][x].pawnTop = isTop;
+            try
+            {
+                Plateau.plateauCases[y][x].pb.Image = imgPawn;
+                Plateau.plateauCases[y][x].pawnExist = isExist;
+                Plateau.plateauCases[y][x].pawnTop = isTop;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("x = " + x + " | y = " + y);
+            }
+           
         }
 
         public static Control FindControlAtPoint(Control container, Point pos)

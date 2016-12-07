@@ -52,17 +52,23 @@ namespace WindowsFormsApplication2
                         int distance = Rule.getDistance(y, x, y1, x1);
                         if (distance == 1)
                         {
-                            int countDiff = -2;
+                            int countDiffY = -2;
+                            int countDiffX = -2;
 
                             if (y < y1)
                             {
-                                countDiff = 2;
+                                countDiffY = 2;
                             }
 
-                            if ((x + countDiff) <= 9 && (y + countDiff) <= 9 &&
-                                (x + countDiff) >= 0 && (y + countDiff) >= 0)
+                            if (x < x1)
                             {
-                                if (!Plateau.plateauCases[y + countDiff][x + countDiff].pawnExist)
+                                countDiffX = 2;
+                            }
+
+                            if ((x + countDiffX) <= 9 && (y + countDiffY) <= 9 &&
+                                (x + countDiffX) >= 0 && (y + countDiffY) >= 0)
+                            {
+                                if (!Plateau.plateauCases[y + countDiffY][x + countDiffX].pawnExist)
                                 {
                                     return true;
                                 }

@@ -88,17 +88,22 @@ namespace WindowsFormsApplication2
                                     int distance = getDistance(y1, x1, y2, x2);
                                     if (distance == 1)
                                     {
-                                        int countDiff = -2;
+                                        int countDiffY = -2;
+                                        int countDiffX = -2;
 
                                         if (y1 < y2)
                                         {
-                                            countDiff = 2;
+                                            countDiffY = 2;
+                                        }
+                                        if (x1 < x2)
+                                        {
+                                            countDiffX = 2;
                                         }
 
-                                        if ((x1 + countDiff) <= 9 && (y1 + countDiff) <= 9 &&
-                                            (x1 + countDiff) >= 0 && (y1 + countDiff) >= 0)
+                                        if ((x1 + countDiffX) <= 9 && (y1 + countDiffY) <= 9 &&
+                                            (x1 + countDiffX) >= 0 && (y1 + countDiffY) >= 0)
                                         {
-                                            if (!Plateau.plateauCases[y1 + countDiff][x1 + countDiff].pawnExist)
+                                            if (!Plateau.plateauCases[y1 + countDiffY][x1 + countDiffX].pawnExist)
                                             {
                                                 Plateau.plateauCases[y1][x1].isnotcareful = true;
                                             }
