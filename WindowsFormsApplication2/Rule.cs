@@ -87,14 +87,15 @@ namespace WindowsFormsApplication2
                                 {
                                     int distance = getDistance(y1, x1, y2, x2);
                                     if (distance == 1)
-                                    { 
-                                        if ((x1 + 2) <= 9 && (y1 + 2) <= 9)
+                                    {
+                                        int countDiff = 2;
+                                        if (!playerTop)
+                                            countDiff = -2;
+
+                                        if ((x1 + countDiff) <= 9 && (y1 + countDiff) <= 9 ||
+                                            (x1 + countDiff) >= 0 && (y1 + countDiff) > 0) 
                                         {
-                                            int countDiff = 2;
-                                            if (!playerTop)
-                                            {
-                                                countDiff = -2;
-                                            }
+                                           
                                             if (!Plateau.plateauCases[y1 + countDiff][x1 + countDiff].pawnExist)
                                             {
                                                 MessageBox.Show("Sauté n'est pas joué détecté");
