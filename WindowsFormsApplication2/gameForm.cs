@@ -20,6 +20,7 @@ namespace WindowsFormsApplication2
         ImagesManager IM;
         Plateau Plt;
         Animation An;
+        Action Act;
 
         public bool boardCreated = false;
 
@@ -30,6 +31,7 @@ namespace WindowsFormsApplication2
             Plt = new Plateau(gamePanel);
             IM = new ImagesManager(gamePanel);
             An = new Animation(gamePanel);
+            Act = new Action(gamePanel);
         }
 
         private void Form1_Load(object sender, EventArgs e)

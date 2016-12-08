@@ -40,6 +40,8 @@ namespace WindowsFormsApplication2
             transition.AnimationType = (BunifuAnimatorNS.AnimationType)type;
             transition.Interval = 10;
             transition.ShowSync(Plateau.plateauCases[y][x].pb);
+
+            Plateau.plateauCases[y][x].pb.Visible = true;
         }
     }
 }

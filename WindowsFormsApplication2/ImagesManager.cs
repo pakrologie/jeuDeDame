@@ -17,11 +17,15 @@ namespace WindowsFormsApplication2
 
         bool onClick = false;
 
+        public ImagesManager(Panel _panelMain) // constructeur
+        {
+            panelMain = _panelMain;
+        }
+
         private void pawnDown(object sender, MouseEventArgs e) // Clic
         {
             if (!onClick)
             {
-   
                 Joueur Player = playerManager.WhosNext();
 
                 PictureBox pawn = (PictureBox)sender;
@@ -39,12 +43,10 @@ namespace WindowsFormsApplication2
                 {
                     if (!Plateau.plateauCases[ySelected][xSelected].mainCombo)
                     {
-                        MessageBox.Show("Vous ne pouvez jouer que le pion 'combo' ");
+                        MessageBox.Show("Vous ne pouvez jouer que le pion 'combo'");
                         return;
                     }
                 }
-                
-                //setCase(xSelected, ySelected);
                 onClick = true;
             }
         }
@@ -56,25 +58,20 @@ namespace WindowsFormsApplication2
                 Joueur Player = playerManager.WhosNext();
                 try
                 {
-                    Control controlObject = FindControlAtCursor(panelMain.FindForm());
+                    Control controlObject = cursorControl.FindControlAtCursor(panelMain.FindForm());
 
                     int x = controlObject.Location.X / 50;
                     int y = controlObject.Location.Y / 50;
 
-                    if (!pawnMoving(x, y))
+                    if (!Action.pawnMoving(x, y, xSelected, ySelected))
                     {
-
-                        //setCase(xSelected, ySelected, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
+                        // N'a pas pu bouger
                     }
                 }
                 catch (Exception ex)
-                {
-                    setCase(xSelected, ySelected, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
-                    MessageBox.Show("Vous ne pouvez pas vous déplacer sur une case blanche");
-                }
+                { }
                 onClick = false;
             }
-           
         }
 
         public void createPictureBox()
@@ -124,79 +121,8 @@ namespace WindowsFormsApplication2
                 }
             }
         }
-        
-        public bool pawnMoving(int x, int y)
-        {
-            Joueur Player = playerManager.WhosNext();
-            Joueur Opponent = playerManager.GetOpponent(Player);
-
-            if (Plateau.plateauCases[y][x].pawnExist)
-            {
-                return false;
-            }
-
-            if (x == xSelected && y == ySelected)
-            {
-                MessageBox.Show("Choix annulé");
-                return false;
-            }
-            else if (!Plateau.plateauCases[y][x].pawnExist)
-            {
-                int ruleDistance = Rule.distanceOk(y, x, ySelected, xSelected, Player.infos.playerTop);
-
-                if (ruleDistance == 0 && !Plateau.plateauCases[y][x].king)
-                {
-                    MessageBox.Show("Vous ne pouvez pas faire cela");
-                    return false;
-                }
-                
-                Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Transparent, x, y);
-
-                // Mise à jour de l'interface
-                setCase(x, y, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
-
-                setCase(xSelected, ySelected);
-                
-                Plateau.plateauCases[y][x].pb.Visible = true;
-                
-                if (ruleDistance == 2) // Attaque un pion adverse
-                {
-                    int x_pawn = Rule.x_pawn;
-                    int y_pawn = Rule.y_pawn;
-                    
-                    Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Particles, x_pawn, y_pawn);
-
-                    setCase(x_pawn, y_pawn);
-                    
-                    Opponent.infos.pawnAlive--;
-
-                    Plateau.plateauCases[y_pawn][x_pawn].pb.Visible = true;
-
-                    if (RuleAdvanced.detectCanEat(Player, x, y))
-                    {
-                        Player.infos.iscombo = true;
-                        Plateau.plateauCases[y][x].mainCombo = true;
-                        return true;
-                    }else
-                    {
-                        Player.infos.iscombo = false;
-                        Plateau.plateauCases[y][x].mainCombo = false;
-                    }
-                }
-
-                RuleAdvanced.resetNotCarefulOpponent(Opponent);
-                Rule.checkJumpingNotPlayed(Player, x, y);
-
-                // Mise à jour des informations Joueurs
-                playerManager.ChangeGameTurn(Player);
-
-                xSelected = -1;
-                ySelected = -1;
-            }
-            return true;
-        }
-
-        public Image getPawnImgByPlayer(Joueur Player, bool ishold = false)
+       
+        public static Image getPawnImgByPlayer(Joueur Player, bool ishold = false)
         {
             if (Player.infos.playerTop)
             {
@@ -211,48 +137,6 @@ namespace WindowsFormsApplication2
                 return new Bitmap("pion_2_hold.png");
             }
             return new Bitmap("pion_2.png");
-        }
-
-        public static void setCase(int x, int y, Image imgPawn = null, bool isExist = false, bool isTop = false)
-        {
-            try
-            {
-                Plateau.plateauCases[y][x].pb.Image = imgPawn;
-                Plateau.plateauCases[y][x].pawnExist = isExist;
-                Plateau.plateauCases[y][x].pawnTop = isTop;
-            }
-            catch(Exception ex)
-            {
-               
-            }
-        }
-
-        public static Control FindControlAtPoint(Control container, Point pos)
-        {
-            Control child;
-            foreach (Control c in container.Controls)
-            {
-                if (c.Visible && c.Bounds.Contains(pos))
-                {
-                    child = FindControlAtPoint(c, new Point(pos.X - c.Left, pos.Y - c.Top));
-                    if (child == null) return c;
-                    else return child;
-                }
-            }
-            return null;
-        }
-
-        public static Control FindControlAtCursor(Form form)
-        {
-            Point pos = Cursor.Position;
-            if (form.Bounds.Contains(pos))
-                return FindControlAtPoint(form, form.PointToClient(pos));
-            return null;
-        }
-
-        public ImagesManager(Panel _panelMain) // constructeur
-        {
-            panelMain = _panelMain;
         }
     }
 }

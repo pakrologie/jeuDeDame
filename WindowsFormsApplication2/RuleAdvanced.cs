@@ -17,7 +17,7 @@ namespace WindowsFormsApplication2
                 if (request == DialogResult.Yes)
                 {
                     Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Particles, x, y);
-                    ImagesManager.setCase(x, y);
+                    Action.setCase(x, y);
                 }
                 return;
             }
@@ -49,7 +49,7 @@ namespace WindowsFormsApplication2
                     if (Plateau.plateauCases[y1][x1].pawnTop != playerTop &&
                         Plateau.plateauCases[y1][x1].pawnExist)
                     {
-                        int distance = Rule.getDistance(y, x, y1, x1);
+                        int distance = Distance.getDistance(y, x, y1, x1);
                         if (distance == 1)
                         {
                             int countDiffY = -2;

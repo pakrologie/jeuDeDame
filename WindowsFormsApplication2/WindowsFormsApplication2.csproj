@@ -74,7 +74,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
     <Compile Include="Animation.cs" />
+    <Compile Include="cursorControl.cs" />
+    <Compile Include="Distance.cs" />
     <Compile Include="gameForm.cs">
       <SubType>Form</SubType>
     </Compile>
