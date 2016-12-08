@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
 {
@@ -37,6 +38,11 @@ namespace WindowsFormsApplication2
             {
                 playerManager.Joueur1.infos.gameTour = true;
                 playerManager.Joueur2.infos.gameTour = false;
+            }
+
+            if (!RuleAdvanced.canMakeAnAction(WhosNext()))
+            {
+                MessageBox.Show("La partie est terminée !");
             }
         }
 

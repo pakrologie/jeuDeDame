@@ -99,5 +99,51 @@ namespace WindowsFormsApplication2
             }
             return new Plateau.cases();
         }
+
+        public static bool canMakeAnAction(Joueur Player)
+        {
+            bool playerTop = Player.infos.playerTop;
+            for (int y = 0; y < Plateau.plateauCases.Length; y++)
+            {
+                for (int x = 0; x < Plateau.plateauCases[y].Length; x++)
+                {
+                    if (Plateau.plateauCases[y][x].pawnTop == playerTop &&
+                        Plateau.plateauCases[y][x].pawnExist)
+                    {
+                        int addX = 1;
+                        int addY = 1;
+
+                        if (!playerTop)
+                        {
+                            addX = -1;
+                            addY = -1;
+                        }
+
+                        if ((x + addX * -1) <= 9 && (y + addY) <= 9 &&
+                               (x + addX * -1) >= 0 && (y + addY) >= 0 ||
+                               (x + addX) <= 9 && (y + addY) <= 9 &&
+                               (x + addX) >= 0 && (y + addY) >= 0)
+                        {
+                            if (!Plateau.plateauCases[y + addY][x + (addX * -1)].pawnExist)
+                            {
+                                return true;
+                            }
+
+                            if (!Plateau.plateauCases[y + addY][x + addX].pawnExist)
+                            {
+                                return true;
+                            }
+                        }
+
+                        if (detectCanEat(Player, x, y))
+                        {
+                            return true;
+                        }
+                    }   
+                }
+            }
+
+            return false;
+        }
     }
 }

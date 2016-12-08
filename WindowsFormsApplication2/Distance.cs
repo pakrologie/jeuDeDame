@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace WindowsFormsApplication2
 {
@@ -23,13 +24,13 @@ namespace WindowsFormsApplication2
 
             if (distance == 3)
             {
-                string[] infoPawn = Rule.canAtk(y1, x1, y2, x2, playerTop).Split(' ');
+                Point OpponentCoords = Rule.canAtk(y1, x1, y2, x2, playerTop);
 
-                if (infoPawn.Length != 2)
+                if (OpponentCoords.X == -1)
                     return 0;
 
-                yPawn = Convert.ToInt32(infoPawn[0]);
-                xPawn = Convert.ToInt32(infoPawn[1]);
+                yPawn = OpponentCoords.Y;
+                xPawn = OpponentCoords.X;
                 return 2;
             }
             else if (distance == 1)

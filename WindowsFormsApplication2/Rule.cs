@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace WindowsFormsApplication2
 {
     class Rule
     {
-        public static string canAtk(int y1, int x1, int y2, int x2, bool playerTop)
+        public static Point canAtk(int y1, int x1, int y2, int x2, bool playerTop)
         {
             for (int y = 0; y < Plateau.plateauCases.Length; y++)
             {
@@ -24,13 +25,13 @@ namespace WindowsFormsApplication2
                         {
                             if (playerTop != Plateau.plateauCases[y][x].pawnTop)
                             {
-                                return String.Format("{0} {1}", y, x);
+                                return new Point(x, y);
                             }
                         }
                     }
                 }
             }
-            return "F";
+            return new Point(-1, -1);
         }
 
         public static void checkJumpingNotPlayed(Joueur isPlaying, int myX, int myY)

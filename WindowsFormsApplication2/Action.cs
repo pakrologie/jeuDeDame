@@ -78,6 +78,11 @@ namespace WindowsFormsApplication2
                         Player.infos.iscombo = false;
                         Plateau.plateauCases[y][x].mainCombo = false;
                     }
+
+                    if (OpponentIsDead(Opponent))
+                    {
+                        return true;
+                    }
                 }
                 
                 // Met à jour les variables ' combo ' de l'adversaire
@@ -104,6 +109,16 @@ namespace WindowsFormsApplication2
             }
             catch (Exception ex)
             { }
+        }
+
+        public static bool OpponentIsDead(Joueur Player)
+        {
+            if (Player.infos.pawnAlive <= 0)
+            {
+                MessageBox.Show("Partie terminée !");
+                return true;
+            }
+            return false;
         }
     }
 }
