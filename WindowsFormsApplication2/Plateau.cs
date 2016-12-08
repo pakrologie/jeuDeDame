@@ -18,11 +18,11 @@ namespace WindowsFormsApplication2
         public static int countVertical = 0;
 
         public static cases[][] plateauCases = new cases[casesCount][];
-        Panel mainForm;
+        Panel panelMain;
 
-        public Plateau(Panel _mainForm)
+        public Plateau(Panel _panelMain)
         {
-            mainForm = _mainForm;
+            panelMain = _panelMain;
         }
 
         public struct cases

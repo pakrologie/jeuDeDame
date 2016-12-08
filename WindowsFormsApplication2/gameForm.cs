@@ -16,8 +16,10 @@ namespace WindowsFormsApplication2
     {
         private bool mouseDown;
         private Point lastLocation;
+
         ImagesManager IM;
         Plateau Plt;
+        Animation An;
 
         public bool boardCreated = false;
 
@@ -27,6 +29,7 @@ namespace WindowsFormsApplication2
             this.DoubleBuffered = true;
             Plt = new Plateau(gamePanel);
             IM = new ImagesManager(gamePanel);
+            An = new Animation(gamePanel);
         }
 
         private void Form1_Load(object sender, EventArgs e)

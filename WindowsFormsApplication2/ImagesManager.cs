@@ -10,7 +10,7 @@ namespace WindowsFormsApplication2
 {
     class ImagesManager
     {
-        static Panel formMain;
+        static Panel panelMain;
 
         int xSelected = -1;
         int ySelected = -1;
@@ -21,6 +21,7 @@ namespace WindowsFormsApplication2
         {
             if (!onClick)
             {
+   
                 Joueur Player = playerManager.WhosNext();
 
                 PictureBox pawn = (PictureBox)sender;
@@ -43,35 +44,37 @@ namespace WindowsFormsApplication2
                     }
                 }
                 
-                setCase(xSelected, ySelected);
+                //setCase(xSelected, ySelected);
                 onClick = true;
-                // Changement de curseur [1]
             }
         }
 
         private void pawnUp(object sender, MouseEventArgs e) // Relâche
         {
-            onClick = false;
-            Joueur Player = playerManager.WhosNext();
-            try
+            if (onClick)
             {
-                Control controlObject = FindControlAtCursor(formMain.FindForm());
+                Joueur Player = playerManager.WhosNext();
+                try
+                {
+                    Control controlObject = FindControlAtCursor(panelMain.FindForm());
 
-                int x = controlObject.Location.X / 50;
-                int y = controlObject.Location.Y / 50;
+                    int x = controlObject.Location.X / 50;
+                    int y = controlObject.Location.Y / 50;
 
-                if (!pawnMoving(x, y))
+                    if (!pawnMoving(x, y))
+                    {
+
+                        //setCase(xSelected, ySelected, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
+                    }
+                }
+                catch (Exception ex)
                 {
                     setCase(xSelected, ySelected, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
+                    MessageBox.Show("Vous ne pouvez pas vous déplacer sur une case blanche");
                 }
+                onClick = false;
             }
-            catch (Exception ex)
-            {
-                setCase(xSelected, ySelected, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
-                MessageBox.Show("Vous ne pouvez pas vous déplacer sur une case blanche");
-            }
-
-            // Changement de curseur [2]
+           
         }
 
         public void createPictureBox()
@@ -116,11 +119,13 @@ namespace WindowsFormsApplication2
 
                         pb.Image = img;
 
-                        formMain.Controls.Add(pb);
+                        panelMain.Controls.Add(pb);
                     }
                 }
             }
         }
+
+       
 
         public bool pawnMoving(int x, int y)
         {
@@ -147,38 +152,28 @@ namespace WindowsFormsApplication2
                     return false;
                 }
 
+                // Animation
+                Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Transparent, x, y);
+
                 // Mise à jour de l'interface
-
-                Plateau.plateauCases[y][x].pb.Visible = false;
-                BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
-                transition.AnimationType = BunifuAnimatorNS.AnimationType.Transparent;
-                transition.Interval = 10;
-                transition.ShowSync(Plateau.plateauCases[y][x].pb);
-
                 setCase(x, y, getPawnImgByPlayer(Player), true, Player.infos.playerTop);
 
                 setCase(xSelected, ySelected);
-
-                System.Threading.Thread.Sleep(200);
+                
                 Plateau.plateauCases[y][x].pb.Visible = true;
-
+                
                 if (ruleDistance == 2) // Attaque un pion adverse
                 {
                     int x_pawn = Rule.x_pawn;
                     int y_pawn = Rule.y_pawn;
 
-                    Plateau.plateauCases[y_pawn][x_pawn].pb.Visible = false;
-                    transition = new BunifuAnimatorNS.BunifuTransition();
-                    transition.AnimationType = BunifuAnimatorNS.AnimationType.Particles;
-                    transition.Interval = 10;
-                    transition.ShowSync(Plateau.plateauCases[y][x].pb);
+                    // Animation
+                    Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Particles, x_pawn, y_pawn);
 
                     setCase(x_pawn, y_pawn);
                     
-
                     Opponent.infos.pawnAlive--;
-                   // MessageBox.Show("Pion(s) restant(s) = " + Opponent.infos.pawnAlive);
-                    System.Threading.Thread.Sleep(200);
+
                     Plateau.plateauCases[y_pawn][x_pawn].pb.Visible = true;
 
                     if (RuleAdvanced.detectCanEat(Player, x, y))
@@ -232,9 +227,8 @@ namespace WindowsFormsApplication2
             }
             catch(Exception ex)
             {
-                MessageBox.Show("x = " + x + " | y = " + y);
+               
             }
-           
         }
 
         public static Control FindControlAtPoint(Control container, Point pos)
@@ -260,9 +254,9 @@ namespace WindowsFormsApplication2
             return null;
         }
 
-        public ImagesManager(Panel _formMain) // constructeur
+        public ImagesManager(Panel _panelMain) // constructeur
         {
-            formMain = _formMain;
+            panelMain = _panelMain;
         }
     }
 }
