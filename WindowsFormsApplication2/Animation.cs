@@ -34,6 +34,7 @@ namespace WindowsFormsApplication2
         {
             panelMain.Enabled = false;
             Plateau.plateauCases[y][x].pb.Visible = false;
+
             BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
             transition.AnimationCompleted += (transitionAnimationCompleted);
             transition.AnimationType = (BunifuAnimatorNS.AnimationType)type;

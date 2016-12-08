@@ -16,8 +16,8 @@ namespace WindowsFormsApplication2
                 DialogResult request = MessageBox.Show("Souhaitez-vous détruire ce pion ?", "Sauté n'est pas joué", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (request == DialogResult.Yes)
                 {
+                    Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Particles, x, y);
                     ImagesManager.setCase(x, y);
-                    MessageBox.Show("Le pion a été détruit !");
                 }
                 return;
             }

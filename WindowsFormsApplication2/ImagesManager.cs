@@ -124,9 +124,7 @@ namespace WindowsFormsApplication2
                 }
             }
         }
-
-       
-
+        
         public bool pawnMoving(int x, int y)
         {
             Joueur Player = playerManager.WhosNext();
@@ -151,8 +149,7 @@ namespace WindowsFormsApplication2
                     MessageBox.Show("Vous ne pouvez pas faire cela");
                     return false;
                 }
-
-                // Animation
+                
                 Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Transparent, x, y);
 
                 // Mise à jour de l'interface
@@ -166,8 +163,7 @@ namespace WindowsFormsApplication2
                 {
                     int x_pawn = Rule.x_pawn;
                     int y_pawn = Rule.y_pawn;
-
-                    // Animation
+                    
                     Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Particles, x_pawn, y_pawn);
 
                     setCase(x_pawn, y_pawn);
