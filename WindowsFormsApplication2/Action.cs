@@ -22,6 +22,8 @@ namespace WindowsFormsApplication2
             Joueur Player = playerManager.WhosNext();
             Joueur Opponent = playerManager.GetOpponent(Player);
 
+            bool playerTop = Player.infos.playerTop;
+
             if (Plateau.plateauCases[y][x].pawnExist)
             {
                 return false;
@@ -35,10 +37,11 @@ namespace WindowsFormsApplication2
             else if (!Plateau.plateauCases[y][x].pawnExist)
             {
                 // Récupère la distance entre la position initiale et finale
-                int ruleDistance = Distance.distanceOk(y, x, ySelected, xSelected, Player.infos.playerTop);
+                int ruleDistance = Distance.distanceOk(y, x, ySelected, xSelected, playerTop);
 
                 // Si la distance n'est pas respecté et que votre pion n'est pas en Etat ' King '
-                if (ruleDistance == 0 && !Plateau.plateauCases[y][x].king)
+                if (ruleDistance == 0 || (ruleDistance != 2 && Plateau.plateauCases[ySelected][xSelected].mainCombo &&
+                    Player.infos.iscombo) || !Distance.sameDiagonal(y, x, ySelected, xSelected))
                 {
                     MessageBox.Show("Vous ne pouvez pas faire cela");
                     return false;
@@ -48,12 +51,18 @@ namespace WindowsFormsApplication2
                 Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Transparent, x, y);
 
                 // Mise à jour de l'interface
-                setCase(x, y, ImagesManager.getPawnImgByPlayer(Player), true, Player.infos.playerTop);
+                Plateau.plateauCases[y][x].king = Plateau.plateauCases[ySelected][xSelected].king;
+                Plateau.plateauCases[ySelected][xSelected].king = false;
+
+                setCase(x, y, Plateau.plateauCases[ySelected][xSelected].pb.Image, true, playerTop);
                 setCase(xSelected, ySelected);
-                
+
+                ImagesManager.pawnToKing(playerTop, x, y);
+
                 // Si le joueur a décidé d'attaquer un pion adverse
                 if (ruleDistance == 2)
                 {
+                    bool isKing = Plateau.plateauCases[y][x].king;
                     // On récupère les coordonnées du pion attaqué
                     int xPawn = Distance.xPawn;
                     int yPawn = Distance.yPawn;
@@ -67,7 +76,8 @@ namespace WindowsFormsApplication2
                     Opponent.infos.pawnAlive--;
                     
                     // Détecte si vous n'avez pas attaquer un pion lorsque vous en avez eu l'occasion
-                    if (RuleAdvanced.detectCanEat(Player, x, y))
+                    if (RuleAdvanced.detectCanEat(Player, x, y) && !isKing || 
+                        RuleAdvanced.detectCanEatForKing(Player, x, y) && isKing)
                     {
                         Player.infos.iscombo = true;
                         Plateau.plateauCases[y][x].mainCombo = true;
@@ -78,7 +88,8 @@ namespace WindowsFormsApplication2
                         Player.infos.iscombo = false;
                         Plateau.plateauCases[y][x].mainCombo = false;
                     }
-
+                    
+                    // Check si l'adversaire n'a plus de pion sur le terrain
                     if (OpponentIsDead(Opponent))
                     {
                         return true;
@@ -89,7 +100,7 @@ namespace WindowsFormsApplication2
                 RuleAdvanced.resetNotCarefulOpponent(Opponent);
                 // Met à jour la variable 'isNotCareful' aux pions n'ayant pas attaquer l'adversaire lorsqu'il en a eu l'occasion
                 Rule.checkJumpingNotPlayed(Player, x, y);
-
+                
                 // Intervertit les tours des joueurs
                 playerManager.ChangeGameTurn(Player);
 
