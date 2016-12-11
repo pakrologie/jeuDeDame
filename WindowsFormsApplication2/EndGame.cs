@@ -26,7 +26,6 @@ namespace WindowsFormsApplication2
                         {
                             if (Attack.detectCanAtk(Player, x, y))
                             {
-
                                 return true;
                             }
                         }
@@ -34,7 +33,6 @@ namespace WindowsFormsApplication2
                         {
                             if (Attack.detectCanAtkForKing(Player, x, y))
                             {
-
                                 return true;
                             }
                         }
@@ -78,9 +76,6 @@ namespace WindowsFormsApplication2
                                 }
                             }
                         }
-
-
-
                     }
                 }
             }

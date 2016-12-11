@@ -61,6 +61,7 @@ namespace WindowsFormsApplication2
             if (distance >= 3 && isKing) // Déplacement pour les pions ' king '
             {
                 int fre = freeField(playerTop, x1, y1, x2, y2);
+                MessageBox.Show("fre = " + fre);
                 return fre;
             }
 
@@ -76,7 +77,7 @@ namespace WindowsFormsApplication2
             Point coeffCoords = Maths.getCoeffDiff(x1, y1, x2, y2);
             int addCoeffX = coeffCoords.X;
             int addCoeffY = coeffCoords.Y;
-            
+
             for (int i = 1; i < Math.Abs(x1 - x2); i++)
             {
                 int xA = x2 + (i * addCoeffX);
@@ -93,28 +94,29 @@ namespace WindowsFormsApplication2
                         }
                         else
                         {
-                            int xData = (xA + addCoeffX);
-                            int yData = (yA + addCoeffY);
+                            int xData = xA + addCoeffX;
+                            int yData = yA + addCoeffY;
+                            if (attacking)
 
-                            if ((xData == x1) && (yData == y1))
+                            for (int e = 1; e < Math.Abs(xA - x1) + 1; e++)
                             {
-                                if (!Plateau.plateauCases[yData][xData].pawnExist)
+                                xData = xA + (addCoeffX * e);
+                                yData = yA + (addCoeffY * e);
+
+                                if (Plateau.plateauCases[yData][xData].pawnExist)
+                                {
+                                    return 0;
+                                }
+                                if (xData == x1 && yData == y1)
                                 {
                                     if (attacking)
                                     {
+                                        
                                         xPawn = xA;
                                         yPawn = yA;
                                     }
                                     return 2;
                                 }
-                                else
-                                {
-                                    return 0;
-                                }
-                            }
-                            else
-                            {
-                                return 0;
                             }
                         }
                     }
