@@ -98,6 +98,7 @@
     <Compile Include="mainUI.Designer.cs">
       <DependentUpon>mainUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Maths.cs" />
     <Compile Include="Plateau.cs" />
     <Compile Include="playerManager.cs" />
     <Compile Include="Program.cs" />

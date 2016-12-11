@@ -98,18 +98,18 @@ namespace WindowsFormsApplication2
                         pb.MouseUp += pawnUp;
 
                         Plateau.plateauCases[y][x].pb = pb;
-                        Plateau.plateauCases[y][x].king = false;
+                        //Plateau.plateauCases[y][x].king = false;
                         Bitmap img = null;
 
                         if (y < 3) // Pion du haut
                         {
-                            img = new Bitmap(@"pion_1.png");
+                            img = (Bitmap)getPawnImgByPlayer(true);
                             Plateau.plateauCases[y][x].pawnExist = true;
                             Plateau.plateauCases[y][x].pawnTop = true;
                         }
                         if (y > 6) // Pion du bas
                         {
-                            img = new Bitmap(@"pion_2.png");
+                            img = (Bitmap)getPawnImgByPlayer(false);
                             Plateau.plateauCases[y][x].pawnExist = true;
                             Plateau.plateauCases[y][x].pawnTop = false;
                         }
@@ -122,19 +122,31 @@ namespace WindowsFormsApplication2
             }
         }
        
-        public static Image getPawnImgByPlayer(Joueur Player, bool ishold = false)
+        public static void pawnToKing(bool playerTop, int x, int y)
         {
-            if (Player.infos.playerTop)
+            if (RuleAdvanced.isLastLine(playerTop, y))
             {
-                if (ishold)
+                if (!Plateau.plateauCases[y][x].king)
                 {
-                    return new Bitmap("pion_1_hold.png");
+                    Plateau.plateauCases[y][x].pb.Image = getPawnImgByPlayer(playerTop, true);
+                    Plateau.plateauCases[y][x].king = true;
+                }
+            }
+        }
+
+        public static Image getPawnImgByPlayer(bool playerTop, bool isking = false)
+        {
+            if (playerTop)
+            {
+                if (isking)
+                {
+                    return new Bitmap("pion_1_queen.png");
                 }
                 return new Bitmap("pion_1.png");
             }
-            if (ishold)
+            if (isking)
             {
-                return new Bitmap("pion_2_hold.png");
+                return new Bitmap("pion_2_queen.png");
             }
             return new Bitmap("pion_2.png");
         }

@@ -51,28 +51,17 @@ namespace WindowsFormsApplication2
                                 if (Plateau.plateauCases[y2][x2].pawnTop != playerTop &&
                                     Plateau.plateauCases[y2][x2].pawnExist)
                                 {
-                                    int distance = Distance.getDistance(y1, x1, y2, x2);
-                                    if (distance == 1)
+                                    if (!Plateau.plateauCases[y1][x1].king) // Pion normal
                                     {
-                                        int countDiffY = -2;
-                                        int countDiffX = -2;
-
-                                        if (y1 < y2)
+                                        if (RuleAdvanced.detectCanEat(isPlaying, x1, y1))
                                         {
-                                            countDiffY = 2;
+                                            Plateau.plateauCases[y1][x1].isnotcareful = true;
                                         }
-                                        if (x1 < x2)
+                                    }else // Reine
+                                    {
+                                        if (RuleAdvanced.detectCanEatForKing(isPlaying, x1, y1))
                                         {
-                                            countDiffX = 2;
-                                        }
-
-                                        if ((x1 + countDiffX) <= 9 && (y1 + countDiffY) <= 9 &&
-                                            (x1 + countDiffX) >= 0 && (y1 + countDiffY) >= 0)
-                                        {
-                                            if (!Plateau.plateauCases[y1 + countDiffY][x1 + countDiffX].pawnExist)
-                                            {
-                                                Plateau.plateauCases[y1][x1].isnotcareful = true;
-                                            }
+                                            Plateau.plateauCases[y1][x1].isnotcareful = true;
                                         }
                                     }
                                 }

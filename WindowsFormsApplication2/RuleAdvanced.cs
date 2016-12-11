@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,34 @@ namespace WindowsFormsApplication2
             }
         }
 
+        public static bool detectCanEatForKing(Joueur Player, int x, int y)
+        {
+            bool playerTop = Player.infos.playerTop;
+
+            for (int y1 = 0; y1 < Plateau.plateauCases.Length; y1++)
+            {
+                for (int x1 = 0; x1 < Plateau.plateauCases[y1].Length; x1++)
+                {
+                    Point coeffCoords = Maths.getCoeffDiff(x1, y1, x, y);
+                    int addCoeffX = coeffCoords.X;
+                    int addCoeffY = coeffCoords.Y;
+
+                    int xData = x1 + addCoeffX;
+                    int yData = y1 + addCoeffY;
+
+                    if (xData <= 9 && yData <= 9 &&
+                        xData >= 0 && yData >= 0)
+                    {
+                        if (Distance.freeField(playerTop, xData, yData, x, y, false) == 2)
+                        {
+                            return true;
+                        }
+                    }
+                }  
+            }
+            return false;
+        }
+
         public static bool detectCanEat(Joueur Player, int x, int y)
         {
             bool playerTop = Player.infos.playerTop;
@@ -52,18 +81,9 @@ namespace WindowsFormsApplication2
                         int distance = Distance.getDistance(y, x, y1, x1);
                         if (distance == 1)
                         {
-                            int countDiffY = -2;
-                            int countDiffX = -2;
-
-                            if (y < y1)
-                            {
-                                countDiffY = 2;
-                            }
-
-                            if (x < x1)
-                            {
-                                countDiffX = 2;
-                            }
+                            Point coeffCoords = Maths.getCoeffDiff(x1, y1, x, y);
+                            int countDiffY = coeffCoords.Y * 2;
+                            int countDiffX = coeffCoords.X * 2;
 
                             if ((x + countDiffX) <= 9 && (y + countDiffY) <= 9 &&
                                 (x + countDiffX) >= 0 && (y + countDiffY) >= 0)
@@ -142,7 +162,24 @@ namespace WindowsFormsApplication2
                     }   
                 }
             }
+            return false;
+        }
 
+        public static bool isLastLine(bool playerTop, int y)
+        {
+            if (playerTop)
+            {
+                if (y == 9)
+                {
+                    return true;
+                }
+            }else
+            {
+                if (y == 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
     }
