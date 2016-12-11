@@ -106,7 +106,7 @@ namespace WindowsFormsApplication2
                             img = (Bitmap)getPawnImgByPlayer(true);
                             Plateau.plateauCases[y][x].pawnExist = true;
                             Plateau.plateauCases[y][x].pawnTop = true;
-                            Plateau.plateauCases[y][x].king = true;
+                  
                         }
                         if (y > 6) // Pion du bas
                         {
