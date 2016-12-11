@@ -74,9 +74,19 @@ namespace WindowsFormsApplication2
         {
             if (canPlay)
             {
+                
                 Form form = new gameForm();
                 form.Show();
+                //Animation
+                form.Visible = false;
+                BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
+                transition.AnimationType = BunifuAnimatorNS.AnimationType.Rotate;
+                transition.Interval = 20;
+                transition.ShowSync(form);
+                form.Visible = true;
+                //Animation
                 this.Hide();
+
             }
             else
             {

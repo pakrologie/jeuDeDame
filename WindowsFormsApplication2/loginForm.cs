@@ -34,47 +34,68 @@ namespace WindowsFormsApplication2
         }
         public void CheckCon(string id, string pw)
         {
-            System.Net.WebClient webc = new System.Net.WebClient();
-            int response = Convert.ToInt32(webc.DownloadString(url + "check_maintenance.php"));
-            switch (response)
+            if (bunifuMetroTextbox1.Text == String.Empty || bunifuMetroTextbox2.Text == String.Empty)
             {
-                default:
-                    MessageBox.Show("Unknown error, please call the administrator.");
-                    break;
-                case 0:
-                    goto Next;
-                case 1:
-                    MessageBox.Show("Maintenance, please check back later!");
-                    return;
+                MessageBox.Show("Please fill all the blanks!");
             }
-
-            Next:
-            response = Convert.ToInt32(webc.DownloadString(url + "check_user.php?username=" + id + "&password=" + pw));
-            switch (response)
+            else
             {
-                case -1:
-                    MessageBox.Show("Unknown error, please call the administrator.");
-                    break;
-                case 0:
-                    MessageBox.Show("Wrong credentials!");
-                    break;
-                case 1:
-                    Username = id;
-                    Password = pw;
-                    Form form = new mainUI(Username, Password);
-                    form.Show();
-                    this.Hide();
-                    break;
+                System.Net.WebClient webc = new System.Net.WebClient();
+                int response = Convert.ToInt32(webc.DownloadString(url + "check_maintenance.php"));
+                switch (response)
+                {
+                    default:
+                        MessageBox.Show("Unknown error, please call the administrator.");
+                        break;
+                    case 0:
+                        goto Next;
+                    case 1:
+                        MessageBox.Show("Maintenance, please check back later!");
+                        return;
+                }
 
-                default:
-                    MessageBox.Show("Unknown error, please call the administrator.");
-                    break;
+                Next:
+                response = Convert.ToInt32(webc.DownloadString(url + "check_user.php?username=" + id + "&password=" + pw));
+                switch (response)
+                {
+                    case -1:
+                        MessageBox.Show("Unknown error, please call the administrator.");
+                        break;
+                    case 0:
+                        MessageBox.Show("Wrong credentials!");
+                        break;
+                    case 1:
+                        Username = id;
+                        Password = pw;
+
+                        Form form = new mainUI(Username, Password);
+                        form.Show();
+                        //Animation
+                        form.Visible = false;
+                        BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
+                        transition.AnimationType = BunifuAnimatorNS.AnimationType.Transparent;
+                        transition.Interval = 20;
+                        transition.ShowSync(form);
+                        form.Visible = true;
+                        //Fin animation
+                        this.Hide();
+                        break;
+
+                    default:
+                        MessageBox.Show("Unknown error, please call the administrator.");
+                        break;
+                }
             }
 
         }
         private void bunifuThinButton21_Click(object sender, EventArgs e)
         {
+
+           
+
             CheckCon(bunifuMetroTextbox1.Text, bunifuMetroTextbox2.Text);
+
+
         }
 
         private void loginForm_Load(object sender, EventArgs e)
