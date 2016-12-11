@@ -19,14 +19,14 @@ namespace WindowsFormsApplication2
          * 2 = Mange un pion
         */
 
-        public static int distanceOk(int y1, int x1, int y2, int x2, bool playerTop)
+        public static int distanceStatus(int y1, int x1, int y2, int x2, bool playerTop)
         {
             bool isKing = Plateau.plateauCases[y2][x2].king;
             int distance = getDistance(y1, x1, y2, x2);
 
             if (distance == 3) // Position d'attaque
             {
-                Point OpponentCoords = Rule.canAtk(y1, x1, y2, x2, playerTop);
+                Point OpponentCoords = Attack.GetCoordsAttakedOpponent(y1, x1, y2, x2, playerTop);
 
                 if (OpponentCoords.X == -1)
                 {
@@ -66,7 +66,6 @@ namespace WindowsFormsApplication2
 
             return 0;
         }
-
         /*
          * 0 = Pas le droit d'avancer
          * 1 = Champ libre
@@ -82,39 +81,45 @@ namespace WindowsFormsApplication2
             {
                 int xA = x2 + (i * addCoeffX);
                 int yA = y2 + (i * addCoeffY);
-
-                if (Plateau.plateauCases[yA][xA].pawnExist)
+                
+                if (xA >= 0 && xA <= 9 &&
+                    yA >= 0 && yA <= 9)
                 {
-                    if (Plateau.plateauCases[yA][xA].pawnTop == playerTop)
+                    if (Plateau.plateauCases[yA][xA].pawnExist)
                     {
-                        return 0;
-                    }
-                    else
-                    {
-                        int xData = (xA + addCoeffX);
-                        int yData = (yA + addCoeffY);
-
-                        if ((xData == x1) && (yData == y1))
+                        if (Plateau.plateauCases[yA][xA].pawnTop == playerTop)
                         {
-                            if (!Plateau.plateauCases[yData][xData].pawnExist)
+                            return 0;
+                        }
+                        else
+                        {
+                            int xData = (xA + addCoeffX);
+                            int yData = (yA + addCoeffY);
+
+                            if ((xData == x1) && (yData == y1))
                             {
-                                if (attacking)
+                                if (!Plateau.plateauCases[yData][xData].pawnExist)
                                 {
-                                    xPawn = xA;
-                                    yPawn = yA;
+                                    if (attacking)
+                                    {
+                                        xPawn = xA;
+                                        yPawn = yA;
+                                    }
+                                    return 2;
                                 }
-                                return 2;
-                            }else
+                                else
+                                {
+                                    return 0;
+                                }
+                            }
+                            else
                             {
                                 return 0;
                             }
                         }
-                        else
-                        {
-                            return 0;
-                        }
                     }
                 }
+
             }
             return 1;
         }
@@ -134,6 +139,25 @@ namespace WindowsFormsApplication2
                 yData += addCoeffY;
 
                 if (xData == x1 && yData == y1)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool isLastLine(bool playerTop, int y)
+        {
+            if (playerTop)
+            {
+                if (y == 9)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (y == 0)
                 {
                     return true;
                 }

@@ -40,7 +40,7 @@ namespace WindowsFormsApplication2
                 playerManager.Joueur2.infos.gameTour = false;
             }
 
-            if (!RuleAdvanced.canMakeAnAction(WhosNext()))
+            if (!EndGame.canMakeAnAction(WhosNext()))
             {
                 MessageBox.Show("La partie est terminée !");
             }

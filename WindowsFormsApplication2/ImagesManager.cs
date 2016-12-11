@@ -35,7 +35,7 @@ namespace WindowsFormsApplication2
 
                 if (Player.infos.playerTop != Plateau.plateauCases[ySelected][xSelected].pawnTop)
                 {
-                    RuleAdvanced.isNotCareful(ySelected, xSelected);
+                    Careful.isNotCareful(ySelected, xSelected);
                     return;
                 }
 
@@ -65,7 +65,7 @@ namespace WindowsFormsApplication2
 
                     if (!Action.pawnMoving(x, y, xSelected, ySelected))
                     {
-                        // N'a pas pu bouger
+                       
                     }
                 }
                 catch (Exception ex)
@@ -124,7 +124,7 @@ namespace WindowsFormsApplication2
        
         public static void pawnToKing(bool playerTop, int x, int y)
         {
-            if (RuleAdvanced.isLastLine(playerTop, y))
+            if (Distance.isLastLine(playerTop, y))
             {
                 if (!Plateau.plateauCases[y][x].king)
                 {

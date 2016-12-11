@@ -36,21 +36,21 @@ namespace WindowsFormsApplication2
             }
             else if (!Plateau.plateauCases[y][x].pawnExist)
             {
-                // Récupère la distance entre la position initiale et finale
-                int ruleDistance = Distance.distanceOk(y, x, ySelected, xSelected, playerTop);
-
-                // Si la distance n'est pas respecté et que votre pion n'est pas en Etat ' King '
+                int ruleDistance = Distance.distanceStatus(y, x, ySelected, xSelected, playerTop);
+                
                 if (ruleDistance == 0 || (ruleDistance != 2 && Plateau.plateauCases[ySelected][xSelected].mainCombo &&
                     Player.infos.iscombo) || !Distance.sameDiagonal(y, x, ySelected, xSelected))
                 {
                     MessageBox.Show("Vous ne pouvez pas faire cela");
                     return false;
                 }
-
-                // Affichage d'une animation lors du déplacement
+                
                 Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Transparent, x, y);
-
-                // Mise à jour de l'interface
+                
+                Careful.resetNotCarefulOpponent(Opponent);
+              
+                Careful.checkJumpingNotPlayed(Player, x, y);
+                
                 Plateau.plateauCases[y][x].king = Plateau.plateauCases[ySelected][xSelected].king;
                 Plateau.plateauCases[ySelected][xSelected].king = false;
 
@@ -58,50 +58,48 @@ namespace WindowsFormsApplication2
                 setCase(xSelected, ySelected);
 
                 ImagesManager.pawnToKing(playerTop, x, y);
-
-                // Si le joueur a décidé d'attaquer un pion adverse
+                
                 if (ruleDistance == 2)
                 {
                     bool isKing = Plateau.plateauCases[y][x].king;
-                    // On récupère les coordonnées du pion attaqué
+
                     int xPawn = Distance.xPawn;
                     int yPawn = Distance.yPawn;
-
-                    // Affichage d'une animation lors de la destruction du pion
+                    
                     Animation.makeTransition((int)BunifuAnimatorNS.AnimationType.Particles, xPawn, yPawn);
 
                     setCase(xPawn, yPawn);
-
-                    // Mise à jour des pions adverses [ 0 = Adversaire à perdu ]
+                    
                     Opponent.infos.pawnAlive--;
                     
-                    // Détecte si vous n'avez pas attaquer un pion lorsque vous en avez eu l'occasion
-                    if (RuleAdvanced.detectCanEat(Player, x, y) && !isKing || 
-                        RuleAdvanced.detectCanEatForKing(Player, x, y) && isKing)
+                    if (!isKing)
                     {
-                        Player.infos.iscombo = true;
-                        Plateau.plateauCases[y][x].mainCombo = true;
-                        return true;
+                        if (Attack.detectCanAtk(Player, x, y))
+                        {
+                            Player.infos.iscombo = true;
+                            Plateau.plateauCases[y][x].mainCombo = true;
+                            return true;
+                        }
                     }
-                    else // Met à jour les variables 'combo' du Joueur 
+                    else
                     {
-                        Player.infos.iscombo = false;
-                        Plateau.plateauCases[y][x].mainCombo = false;
+                        if (Attack.detectCanAtkForKing(Player, x, y))
+                        {
+                            Player.infos.iscombo = true;
+                            Plateau.plateauCases[y][x].mainCombo = true;
+                            return true;
+                        }
                     }
                     
-                    // Check si l'adversaire n'a plus de pion sur le terrain
-                    if (OpponentIsDead(Opponent))
+                    Player.infos.iscombo = false;
+                    Plateau.plateauCases[y][x].mainCombo = false;
+                    
+                    if (EndGame.OpponentIsDead(Opponent))
                     {
                         return true;
                     }
                 }
                 
-                // Met à jour les variables ' combo ' de l'adversaire
-                RuleAdvanced.resetNotCarefulOpponent(Opponent);
-                // Met à jour la variable 'isNotCareful' aux pions n'ayant pas attaquer l'adversaire lorsqu'il en a eu l'occasion
-                Rule.checkJumpingNotPlayed(Player, x, y);
-                
-                // Intervertit les tours des joueurs
                 playerManager.ChangeGameTurn(Player);
 
                 xSelected = -1;
@@ -122,14 +120,6 @@ namespace WindowsFormsApplication2
             { }
         }
 
-        public static bool OpponentIsDead(Joueur Player)
-        {
-            if (Player.infos.pawnAlive <= 0)
-            {
-                MessageBox.Show("Partie terminée !");
-                return true;
-            }
-            return false;
-        }
+      
     }
 }
