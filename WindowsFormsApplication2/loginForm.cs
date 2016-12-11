@@ -13,8 +13,11 @@ namespace WindowsFormsApplication2
 {
     public partial class loginForm : Form
     {
-        ns1.Drag MF = new Drag();
-        private string password = string.Empty;
+        private ns1.Drag MF = new Drag();
+        private string url = "http://omega-team.net/app/";
+        public string Username = String.Empty;
+        public string Password = String.Empty;
+
         public loginForm()
         {
             InitializeComponent();
@@ -29,12 +32,70 @@ namespace WindowsFormsApplication2
         {
             this.WindowState = FormWindowState.Minimized;
         }
+        public void CheckCon(string id, string pw)
+        {
+            if (bunifuMetroTextbox1.Text == String.Empty || bunifuMetroTextbox2.Text == String.Empty)
+            {
+                MessageBox.Show("Please fill all the blanks!");
+            }
+            else
+            {
+                System.Net.WebClient webc = new System.Net.WebClient();
+                int response = Convert.ToInt32(webc.DownloadString(url + "check_maintenance.php"));
+                switch (response)
+                {
+                    default:
+                        MessageBox.Show("Unknown error, please call the administrator.");
+                        break;
+                    case 0:
+                        goto Next;
+                    case 1:
+                        MessageBox.Show("Maintenance, please check back later!");
+                        return;
+                }
 
+                Next:
+                response = Convert.ToInt32(webc.DownloadString(url + "check_user.php?username=" + id + "&password=" + pw));
+                switch (response)
+                {
+                    case -1:
+                        MessageBox.Show("Unknown error, please call the administrator.");
+                        break;
+                    case 0:
+                        MessageBox.Show("Wrong credentials!");
+                        break;
+                    case 1:
+                        Username = id;
+                        Password = pw;
+
+                        Form form = new mainUI(Username, Password);
+                        form.Show();
+                        //Animation
+                        form.Visible = false;
+                        BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
+                        transition.AnimationType = BunifuAnimatorNS.AnimationType.Transparent;
+                        transition.Interval = 20;
+                        transition.ShowSync(form);
+                        form.Visible = true;
+                        //Fin animation
+                        this.Hide();
+                        break;
+
+                    default:
+                        MessageBox.Show("Unknown error, please call the administrator.");
+                        break;
+                }
+            }
+
+        }
         private void bunifuThinButton21_Click(object sender, EventArgs e)
         {
-            Form form = new mainUI();
-            form.Show();
-            this.Hide();
+
+           
+
+            CheckCon(bunifuMetroTextbox1.Text, bunifuMetroTextbox2.Text);
+
+
         }
 
         private void loginForm_Load(object sender, EventArgs e)
@@ -47,21 +108,12 @@ namespace WindowsFormsApplication2
             Environment.Exit(0);
         }
 
-        private void bunifuMetroTextbox1_KeyUp(object sender, KeyEventArgs e)
-        {
-            
-        }
-
-        private void bunifuMetroTextbox2_KeyUp(object sender, KeyEventArgs e)
-        {
-            
-        }
-
         private void bunifuMetroTextbox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 e.Handled = e.SuppressKeyPress = true;
+                CheckCon(bunifuMetroTextbox1.Text, bunifuMetroTextbox2.Text);
             }
         }
 
@@ -70,13 +122,13 @@ namespace WindowsFormsApplication2
             if (e.KeyCode == Keys.Enter)
             {
                 e.Handled = e.SuppressKeyPress = true;
-                
+                CheckCon(bunifuMetroTextbox1.Text, bunifuMetroTextbox2.Text);
+
             }
         }
 
         private void backgroundPanel_MouseDown(object sender, MouseEventArgs e)
         {
-
             MF.Grab(this);
         }
 
