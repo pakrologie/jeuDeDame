@@ -61,7 +61,6 @@ namespace WindowsFormsApplication2
             if (distance >= 3 && isKing) // Déplacement pour les pions ' king '
             {
                 int fre = freeField(playerTop, x1, y1, x2, y2);
-                MessageBox.Show("fre = " + fre);
                 return fre;
             }
 
@@ -96,8 +95,7 @@ namespace WindowsFormsApplication2
                         {
                             int xData = xA + addCoeffX;
                             int yData = yA + addCoeffY;
-                            if (attacking)
-
+                            
                             for (int e = 1; e < Math.Abs(xA - x1) + 1; e++)
                             {
                                 xData = xA + (addCoeffX * e);
