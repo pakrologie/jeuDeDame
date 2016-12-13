@@ -36,6 +36,7 @@ namespace WindowsFormsApplication2
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            bunifuFormFadeTransition1.ShowAsyc(this);
             Plt.remplirPlateau();
         }
         

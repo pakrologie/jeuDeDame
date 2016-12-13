@@ -20,6 +20,7 @@ namespace WindowsFormsApplication2
 
         public loginForm()
         {
+            this.DoubleBuffered = true;
             InitializeComponent();
         }
 
@@ -67,17 +68,9 @@ namespace WindowsFormsApplication2
                     case 1:
                         Username = id;
                         Password = pw;
-
+                        
                         Form form = new mainUI(Username, Password);
                         form.Show();
-                        //Animation
-                        form.Visible = false;
-                        BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
-                        transition.AnimationType = BunifuAnimatorNS.AnimationType.Transparent;
-                        transition.Interval = 20;
-                        transition.ShowSync(form);
-                        form.Visible = true;
-                        //Fin animation
                         this.Hide();
                         break;
 
@@ -100,7 +93,7 @@ namespace WindowsFormsApplication2
 
         private void loginForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Environment.Exit(0);
+            Application.Exit();
         }
 
         private void bunifuMetroTextbox1_KeyDown(object sender, KeyEventArgs e)

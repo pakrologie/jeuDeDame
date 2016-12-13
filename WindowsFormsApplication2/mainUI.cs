@@ -19,6 +19,7 @@ namespace WindowsFormsApplication2
 
         public mainUI(string Username, string Password)
         {
+            this.DoubleBuffered = true;
             InitializeComponent();
             _Username = Username;
             _Password = Password;
@@ -72,30 +73,13 @@ namespace WindowsFormsApplication2
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (canPlay)
-            {
-                
-                Form form = new gameForm();
-                form.Show();
-                //Animation
-                form.Visible = false;
-                BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
-                transition.AnimationType = BunifuAnimatorNS.AnimationType.Rotate;
-                transition.Interval = 20;
-                transition.ShowSync(form);
-                form.Visible = true;
-                //Animation
-                this.Hide();
-
-            }
-            else
-            {
-
-            }
+           
         }
 
         private void mainUI_Load(object sender, EventArgs e)
         {
+            bunifuFormFadeTransition1.ShowAsyc(this);
+
             System.Threading.Thread th = System.Threading.Thread.CurrentThread;
             th.Name = "MainThread";
 
@@ -104,8 +88,7 @@ namespace WindowsFormsApplication2
             securityCheckThread.Name = "securityCheckThread";
             securityCheckThread.Start();
 
-            label1.Text = "Salut " + _Username + ",";
-            label2.Text = "Ton mdp est " + _Password;
+            label1.Text =  _Username + " !";
          
         }
         private void securityCheck()
@@ -120,7 +103,38 @@ namespace WindowsFormsApplication2
 
         private void mainUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Environment.Exit(0);
+            Application.Exit();
+        }
+
+        private void bunifuTileButton1_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void bunifuTileButton6_Click(object sender, EventArgs e)
+        {
+            if (canPlay)
+            {
+
+                Form form = new gameForm();
+                form.Show();
+                this.Hide();
+
+            }
+            else
+            {
+
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }
