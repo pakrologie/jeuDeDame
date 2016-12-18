@@ -23,7 +23,7 @@ namespace Jeu_De_Dame___Serveur
             info_main.playerTop = Convert.ToBoolean(playerTop);
             info_game.opponent = opponent;
         }
-          
+        
         public struct infos
         {
             public string pseudo;

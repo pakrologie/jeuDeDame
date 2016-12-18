@@ -103,18 +103,17 @@ namespace WindowsFormsApplication2
 
         private void bunifuTileButton1_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void bunifuTileButton6_Click(object sender, EventArgs e)
         {
             if (canPlay)
             {
-
+                MessageBox.Show("Username = " + _Username + " | Password = " + _Password);
                 Form form = new gameForm();
                 form.Show();
                 this.Hide();
-
             }
             else
             {

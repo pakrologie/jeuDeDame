@@ -35,7 +35,6 @@ namespace Jeu_De_Dame___Serveur
                     
                     if (TimeCount >= 30)
                     {
-                       
                         int IndexOpponent = ClientManager.byPseudo(ClientManager.ListClient[IndexClient].info_game.opponent);
 
                         if (IndexOpponent == -1)

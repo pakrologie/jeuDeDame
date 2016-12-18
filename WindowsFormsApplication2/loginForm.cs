@@ -79,13 +79,11 @@ namespace WindowsFormsApplication2
                         break;
                 }
             }
-
         }
+
         private void bunifuThinButton21_Click(object sender, EventArgs e)
         {
-            Form form = new gameForm();
-            form.Show();
-            this.Hide();
+            CheckCon(bunifuMetroTextbox1.Text, bunifuMetroTextbox2.Text);
         }
 
         private void loginForm_Load(object sender, EventArgs e)
