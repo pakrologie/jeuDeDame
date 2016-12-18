@@ -76,12 +76,8 @@
   <ItemGroup>
     <Compile Include="Action.cs" />
     <Compile Include="Animation.cs" />
-    <Compile Include="Attack.cs" />
-    <Compile Include="Careful.cs" />
-    <Compile Include="Combo.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="cursorControl.cs" />
-    <Compile Include="Distance.cs" />
-    <Compile Include="EndGame.cs" />
     <Compile Include="gameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,7 +85,6 @@
       <DependentUpon>gameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ImagesManager.cs" />
-    <Compile Include="Joueur.cs" />
     <Compile Include="loginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,9 +97,8 @@
     <Compile Include="mainUI.Designer.cs">
       <DependentUpon>mainUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Maths.cs" />
+    <Compile Include="More.cs" />
     <Compile Include="Plateau.cs" />
-    <Compile Include="playerManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="gameForm.resx">

@@ -38,7 +38,7 @@ namespace WindowsFormsApplication2
             BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
             transition.AnimationCompleted += (transitionAnimationCompleted);
             transition.AnimationType = (BunifuAnimatorNS.AnimationType)type;
-            transition.Interval = 10;
+            transition.Interval = 5;
             transition.ShowSync(Plateau.plateauCases[y][x].pb);
 
             Plateau.plateauCases[y][x].pb.Visible = true;

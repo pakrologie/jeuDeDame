@@ -36,20 +36,15 @@ namespace WindowsFormsApplication2
         {
             System.Net.WebClient webc = new System.Net.WebClient();
             int response = Convert.ToInt32(webc.DownloadString(url + "check_maintenance.php"));
-            switch (response)
-            {
-                default:
-                    break;
-                case 0:
-                    goto Next;
-                case 1:
-                    MessageBox.Show("Server is going under maintenance, You will be logged off.");
-                    Disconnect();
-                    canPlay = false;
-                    return;
-            }
 
-            Next:
+            if (response == 1)
+            {
+                MessageBox.Show("Server is going under maintenance, You will be logged off.");
+                Disconnect();
+                canPlay = false;
+                return;
+            }
+            
             response = Convert.ToInt32(webc.DownloadString(url + "check_user.php?username=" + id + "&password=" + pw));
             switch (response)
             {

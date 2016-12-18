@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bunifu.Framework.Lib;
+using System.Net;
+using System.Net.Sockets;
 
 namespace WindowsFormsApplication2
 {
@@ -21,6 +23,7 @@ namespace WindowsFormsApplication2
         Plateau Plt;
         Animation An;
         Action Act;
+        Client Cl;
 
         public bool boardCreated = false;
 
@@ -32,21 +35,23 @@ namespace WindowsFormsApplication2
             IM = new ImagesManager(gamePanel);
             An = new Animation(gamePanel);
             Act = new Action(gamePanel);
+            Cl = new Client(listBox2, gamePanel);
         }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             bunifuFormFadeTransition1.ShowAsyc(this);
             Plt.remplirPlateau();
+            Client.connectServer("127.0.0.1", 8080);
         }
-        
+
         private void gamePanel_Paint(object sender, PaintEventArgs e)
         {
             if (!boardCreated)
             {
                 Plateau.PaintEventForm1(gamePanel.Width, gamePanel.Height, e);
                 IM.createPictureBox();
-                playerManager.createPlayers();
+                
                 boardCreated = true;
             }
         }

@@ -81,7 +81,6 @@ namespace WindowsFormsApplication2
 
         public static void PaintEventForm1(int width, int height, PaintEventArgs e)
         {
-
             int countRec = 0;
             int formWidth = width;
             int formHeight = height;

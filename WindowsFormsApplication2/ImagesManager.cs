@@ -26,27 +26,11 @@ namespace WindowsFormsApplication2
         {
             if (!onClick)
             {
-                Joueur Player = playerManager.WhosNext();
-
                 PictureBox pawn = (PictureBox)sender;
 
                 xSelected = pawn.Location.X / 50;
                 ySelected = pawn.Location.Y / 50;
 
-                if (Player.infos.playerTop != Plateau.plateauCases[ySelected][xSelected].pawnTop)
-                {
-                    Careful.isNotCareful(ySelected, xSelected);
-                    return;
-                }
-
-                if (Player.infos.iscombo)
-                {
-                    if (!Plateau.plateauCases[ySelected][xSelected].mainCombo)
-                    {
-                        MessageBox.Show("Vous ne pouvez jouer que le pion 'combo'");
-                        return;
-                    }
-                }
                 onClick = true;
             }
         }
@@ -55,7 +39,6 @@ namespace WindowsFormsApplication2
         {
             if (onClick)
             {
-                Joueur Player = playerManager.WhosNext();
                 try
                 {
                     Control controlObject = cursorControl.FindControlAtCursor(panelMain.FindForm());
@@ -63,10 +46,8 @@ namespace WindowsFormsApplication2
                     int x = controlObject.Location.X / 50;
                     int y = controlObject.Location.Y / 50;
 
-                    if (!Action.pawnMoving(x, y, xSelected, ySelected))
-                    {
-                       
-                    }
+                    Client.SendPacket("select " + x + " " + y + " " + xSelected + " " + ySelected);
+                    //pawnMoving
                 }
                 catch (Exception ex)
                 { }
@@ -98,39 +79,23 @@ namespace WindowsFormsApplication2
                         pb.MouseUp += pawnUp;
 
                         Plateau.plateauCases[y][x].pb = pb;
-                        //Plateau.plateauCases[y][x].king = false;
+
                         Bitmap img = null;
 
                         if (y < 3) // Pion du haut
                         {
                             img = (Bitmap)getPawnImgByPlayer(true);
-                            Plateau.plateauCases[y][x].pawnExist = true;
-                            Plateau.plateauCases[y][x].pawnTop = true;
                   
                         }
                         if (y > 6) // Pion du bas
                         {
                             img = (Bitmap)getPawnImgByPlayer(false);
-                            Plateau.plateauCases[y][x].pawnExist = true;
-                            Plateau.plateauCases[y][x].pawnTop = false;
                         }
 
                         pb.Image = img;
 
                         panelMain.Controls.Add(pb);
                     }
-                }
-            }
-        }
-       
-        public static void pawnToKing(bool playerTop, int x, int y)
-        {
-            if (Distance.isLastLine(playerTop, y))
-            {
-                if (!Plateau.plateauCases[y][x].king)
-                {
-                    Plateau.plateauCases[y][x].pb.Image = getPawnImgByPlayer(playerTop, true);
-                    Plateau.plateauCases[y][x].king = true;
                 }
             }
         }

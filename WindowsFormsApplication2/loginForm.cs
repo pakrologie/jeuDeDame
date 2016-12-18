@@ -83,7 +83,9 @@ namespace WindowsFormsApplication2
         }
         private void bunifuThinButton21_Click(object sender, EventArgs e)
         {
-            CheckCon(bunifuMetroTextbox1.Text, bunifuMetroTextbox2.Text);
+            Form form = new gameForm();
+            form.Show();
+            this.Hide();
         }
 
         private void loginForm_Load(object sender, EventArgs e)
