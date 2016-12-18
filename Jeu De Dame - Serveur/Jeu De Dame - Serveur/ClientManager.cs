@@ -17,11 +17,11 @@ namespace Jeu_De_Dame___Serveur
         public infos info_main;
         public game info_game;
 
-        public Client(string pseudo, int playerTop, string opponent)
+        public Client(string pseudo)
         {
             info_main.pseudo = pseudo;
-            info_main.playerTop = Convert.ToBoolean(playerTop);
-            info_game.opponent = opponent;
+            //info_main.playerTop = Convert.ToBoolean(playerTop);
+            //info_game.opponent = opponent;
         }
         
         public struct infos

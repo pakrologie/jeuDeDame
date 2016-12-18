@@ -13,9 +13,11 @@ namespace WindowsFormsApplication2
     public partial class mainUI : Form
     {
         private string url = "http://omega-team.net/app/";
-        private string _Username = String.Empty;
-        private string _Password = String.Empty;
+        public static string _Username = String.Empty;
+        public static string _Password = String.Empty;
         private bool canPlay = true;
+
+        static Client myClient;
 
         public mainUI(string Username, string Password)
         {
@@ -24,6 +26,7 @@ namespace WindowsFormsApplication2
             _Username = Username;
             _Password = Password;
         }
+
         private void Disconnect()
         {
             Form loginForm = new loginForm();
@@ -32,6 +35,7 @@ namespace WindowsFormsApplication2
             canPlay = false;
             loginForm.ShowDialog();
         }
+
         public void CheckCon(string id, string pw)
         {
             System.Net.WebClient webc = new System.Net.WebClient();
@@ -76,9 +80,11 @@ namespace WindowsFormsApplication2
             bunifuFormFadeTransition1.ShowAsyc(this);
 
             System.Threading.Thread th = System.Threading.Thread.CurrentThread;
+            th.Name = "MainThread";
 
             //  System.Threading.Thread securityCheckThread = new System.Threading.Thread(() => CheckCon(_Username, _Password));
             System.Threading.Thread securityCheckThread = new System.Threading.Thread(securityCheck);
+            securityCheckThread.Name = "securityCheckThread";
             securityCheckThread.Start();
 
             label1.Text =  _Username + " !";
@@ -108,14 +114,7 @@ namespace WindowsFormsApplication2
         {
             if (canPlay)
             {
-                MessageBox.Show("Username = " + _Username + " | Password = " + _Password);
-                Form form = new gameForm(_Username, _Password);
-                form.Show();
-                this.Hide();
-            }
-            else
-            {
-
+                Client.SendPacket("newMatch " + _Username + " 1 a");
             }
         }
 
@@ -129,18 +128,10 @@ namespace WindowsFormsApplication2
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void bunifuTileButton7_Click(object sender, EventArgs e)
-        {
-            Form frm = new reportForm();
-            DialogResult dr = frm.ShowDialog(this);
-            if (dr == DialogResult.Cancel)
-            { }
-            frm.Dispose();
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
+
     }
 }

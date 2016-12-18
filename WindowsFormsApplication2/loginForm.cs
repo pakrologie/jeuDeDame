@@ -68,7 +68,9 @@ namespace WindowsFormsApplication2
                     case 1:
                         Username = id;
                         Password = pw;
-                        
+
+                        Client.connectServer("127.0.0.1", 8080, Username);
+
                         Form form = new mainUI(Username, Password);
                         form.Show();
                         this.Hide();

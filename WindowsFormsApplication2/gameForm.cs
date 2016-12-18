@@ -18,35 +18,31 @@ namespace WindowsFormsApplication2
     {
         private bool mouseDown;
         private Point lastLocation;
-        private string _Username = String.Empty;
-        private string _Password = String.Empty;
 
         ImagesManager IM;
         Plateau Plt;
         Animation An;
         Action Act;
-        Client Cl;
+        PacketHandler Ph;
 
         public bool boardCreated = false;
 
-        public gameForm(string Username, string Password)
+        public gameForm()
         {
-            _Username = Username;
-            _Password = Password;
-            InitializeComponent();
             this.DoubleBuffered = true;
+            InitializeComponent();
+            
             Plt = new Plateau(gamePanel);
             IM = new ImagesManager(gamePanel);
             An = new Animation(gamePanel);
             Act = new Action(gamePanel);
-            Cl = new Client(listBox2, gamePanel);
+            Ph = new PacketHandler(gamePanel, listBox2);
         }
         
         private void Form1_Load(object sender, EventArgs e)
         {
             bunifuFormFadeTransition1.ShowAsyc(this);
             Plt.remplirPlateau();
-            Client.connectServer("127.0.0.1", 8080);
         }
 
         private void gamePanel_Paint(object sender, PaintEventArgs e)
@@ -207,16 +203,6 @@ namespace WindowsFormsApplication2
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void bunifuFlatButton6_Click(object sender, EventArgs e)
-        {
-            
-            //Disconnect
-            //Abandon si en train de jouer
-            Form mainUI = new mainUI(_Username, _Password);
-            mainUI.Show();
-            this.Close();
         }
     }
 }

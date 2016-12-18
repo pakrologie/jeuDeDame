@@ -45,35 +45,10 @@ namespace Jeu_De_Dame___Serveur
 
             if (Packet.Handler(null, packet, true, Client))
             {
-                int IndexClient = ClientManager.bySocket(Client);
-
-                if (IndexClient == -1)
-                {
-                    goto outOfTreatment;
-                }
-                
-                string PseudoClient = ClientManager.ListClient[IndexClient].info_main.pseudo;
-                string OpponentClient = ClientManager.ListClient[IndexClient].info_game.opponent;
-                
-                Console.WriteLine("Nouveau match : " + PseudoClient + " Vs : " + OpponentClient);
-                
-                int IndexOpponent = ClientManager.byPseudo(OpponentClient);
-
-                if (IndexOpponent != -1)
-                {
-                    if (!Match.startGame(IndexClient, IndexOpponent))
-                    {
-                        goto outOfTreatment;
-                    }
-
-                    Console.WriteLine("Les deux joueurs sont prets ...");
-
-                    return;
-                }
-
-                Console.WriteLine("L'autre joueur n'est pas encore pret ...");
+                Console.WriteLine("Nouveau client ajouté !");
                 return;
             }
+
             outOfTreatment:
             Console.WriteLine("Le client a ete perdu");
         }
