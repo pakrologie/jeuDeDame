@@ -16,7 +16,14 @@ namespace WindowsFormsApplication2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new loginForm());
+            loginForm lf = new loginForm();
+            if (lf != null)
+            { Application.Run(new loginForm()); }
+            else
+            {
+                
+            }
+            
             
         }
     }

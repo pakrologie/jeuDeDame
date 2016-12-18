@@ -18,6 +18,8 @@ namespace WindowsFormsApplication2
     {
         private bool mouseDown;
         private Point lastLocation;
+        private string _Username = String.Empty;
+        private string _Password = String.Empty;
 
         ImagesManager IM;
         Plateau Plt;
@@ -27,8 +29,10 @@ namespace WindowsFormsApplication2
 
         public bool boardCreated = false;
 
-        public gameForm()
+        public gameForm(string Username, string Password)
         {
+            _Username = Username;
+            _Password = Password;
             InitializeComponent();
             this.DoubleBuffered = true;
             Plt = new Plateau(gamePanel);
@@ -203,6 +207,16 @@ namespace WindowsFormsApplication2
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void bunifuFlatButton6_Click(object sender, EventArgs e)
+        {
+            
+            //Disconnect
+            //Abandon si en train de jouer
+            Form mainUI = new mainUI(_Username, _Password);
+            mainUI.Show();
+            this.Close();
         }
     }
 }

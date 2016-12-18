@@ -76,11 +76,9 @@ namespace WindowsFormsApplication2
             bunifuFormFadeTransition1.ShowAsyc(this);
 
             System.Threading.Thread th = System.Threading.Thread.CurrentThread;
-            th.Name = "MainThread";
 
             //  System.Threading.Thread securityCheckThread = new System.Threading.Thread(() => CheckCon(_Username, _Password));
             System.Threading.Thread securityCheckThread = new System.Threading.Thread(securityCheck);
-            securityCheckThread.Name = "securityCheckThread";
             securityCheckThread.Start();
 
             label1.Text =  _Username + " !";
@@ -111,7 +109,7 @@ namespace WindowsFormsApplication2
             if (canPlay)
             {
                 MessageBox.Show("Username = " + _Username + " | Password = " + _Password);
-                Form form = new gameForm();
+                Form form = new gameForm(_Username, _Password);
                 form.Show();
                 this.Hide();
             }
@@ -129,6 +127,20 @@ namespace WindowsFormsApplication2
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void bunifuTileButton7_Click(object sender, EventArgs e)
+        {
+            Form frm = new reportForm();
+            DialogResult dr = frm.ShowDialog(this);
+            if (dr == DialogResult.Cancel)
+            { }
+            frm.Dispose();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
