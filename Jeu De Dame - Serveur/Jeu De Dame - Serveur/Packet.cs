@@ -53,7 +53,6 @@ namespace Jeu_De_Dame___Serveur
             if (packetSpace[0] == "ok" && packetSpace.Length == 1)
             {
                 isPlaying.info_main.received = true;
-                Console.WriteLine("Ok received");
             }
 
             if (packetSpace[0] == "select" && packetSpace.Length == 5)

@@ -226,7 +226,11 @@ namespace WindowsFormsApplication2
             ImagesManager MyImageM = new ImagesManager(gamePanel);
 
             MyImageM.resetPlateau();
-            gameList.Items.Clear();
+
+            gameList.Invoke((MethodInvoker)delegate ()
+            {
+                gameList.Items.Clear();
+            });
             
             MyGameForm.Invoke((MethodInvoker)delegate () {
                 MyGameForm.Hide();

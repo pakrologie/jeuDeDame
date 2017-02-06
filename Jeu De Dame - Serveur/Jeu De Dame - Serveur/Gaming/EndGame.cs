@@ -101,7 +101,7 @@ namespace Jeu_De_Dame___Serveur
 
             if (isPlaying.info_game.pawnAlive <= 0)
             {
-                ClientManager.RedirectEnding(ClientManager.ListClient[IndexOpponent], false);
+                ClientManager.RedirectEnding(isPlaying, false);
                 return true;
             }
             return false;
