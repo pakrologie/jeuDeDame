@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BunifuAnimatorNS;
 
 namespace Jeu_De_Dame___Serveur
 {
