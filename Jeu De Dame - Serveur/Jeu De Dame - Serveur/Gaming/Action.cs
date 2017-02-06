@@ -80,7 +80,7 @@ namespace Jeu_De_Dame___Serveur
                 
                 Match.SynchroWithOpponents(isPlaying);
                 
-                setCase(isPlaying, x, y, imageManager.getPawnImgByPlayer(playerTop), true, playerTop);
+                setCase(isPlaying, x, y, imageManager.getPawnImgByPlayer(playerTop, ClientManager.ListClient[IndexClient].info_game.plateauCases[y][x].king), true, playerTop);
                 
                 setCase(isPlaying, xSelected, ySelected);
              
