@@ -21,6 +21,7 @@ namespace Jeu_De_Dame___Serveur
 
             if (firstRcv)
             {
+
                 if (packetSpace[0] == "addClient" && packetSpace.Length == 2)
                 {
                     string pseudoByPacket = packetSpace[1];
@@ -38,11 +39,21 @@ namespace Jeu_De_Dame___Serveur
                         newClient.info_game.plateauCases = new Plateau.cases[10][];
 
                         ClientManager.ListClient.Add(newClient);
+
+                        newClient.MySendThread = new Thread(newClient.ThreadSendVoid);
+
+                        newClient.MySendThread.Start();
                         newThread.Start();
                         return true;
                     }
                 }
                 return false;
+            }
+
+            if (packetSpace[0] == "ok" && packetSpace.Length == 1)
+            {
+                isPlaying.info_main.received = true;
+                Console.WriteLine("Ok received");
             }
 
             if (packetSpace[0] == "select" && packetSpace.Length == 5)

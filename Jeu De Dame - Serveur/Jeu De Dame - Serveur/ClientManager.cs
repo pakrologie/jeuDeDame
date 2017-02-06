@@ -13,15 +13,18 @@ namespace Jeu_De_Dame___Serveur
     {
         public Socket MySocket;
         public Thread MyThread;
+        public Thread MySendThread;
 
         public infos info_main;
         public game info_game;
 
+        public List<string> PacketToSend;
+
         public Client(string pseudo)
         {
             info_main.pseudo = pseudo;
-            //info_main.playerTop = Convert.ToBoolean(playerTop);
-            //info_game.opponent = opponent;
+            info_main.received = true;
+            PacketToSend = new List<string>();
         }
         
         public struct infos
@@ -29,6 +32,7 @@ namespace Jeu_De_Dame___Serveur
             public string pseudo;
             public bool playerTop;
             public bool iswait;
+            public bool received;
         }
 
         public struct game
@@ -41,6 +45,23 @@ namespace Jeu_De_Dame___Serveur
             public Plateau.cases[][] plateauCases;
             public bool asked;
             public int timeCount;
+        }
+
+        public void ThreadSendVoid()
+        {
+            while (MySocket.Connected)
+            {
+                for (int i = 0; i < PacketToSend.Count; i++)
+                {
+                    if (info_main.received)
+                    {
+                        Console.WriteLine(this.info_main.pseudo + " (" + PacketToSend[i] + ") envoyé");
+                        MySocket.Send(System.Text.Encoding.UTF8.GetBytes(PacketToSend[i]));
+                        info_main.received = false;
+                        PacketToSend.RemoveAt(i);
+                    }
+                }
+            }
         }
 
         public void Deconnexion()
@@ -73,10 +94,7 @@ namespace Jeu_De_Dame___Serveur
         {
             if (MySocket.Connected)
             {
-                Console.WriteLine(this.info_main.pseudo + " (" + packet + ") envoyé");
-                MySocket.Send(System.Text.Encoding.UTF8.GetBytes(packet));
-
-                System.Threading.Thread.Sleep(20);
+                PacketToSend.Add(packet);
             }
         }
 
@@ -109,6 +127,8 @@ namespace Jeu_De_Dame___Serveur
                 {
                     this.Deconnexion();
                 }
+
+                System.Threading.Thread.Sleep(20);
             }
         }
     }

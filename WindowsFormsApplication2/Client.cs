@@ -66,12 +66,12 @@ namespace WindowsFormsApplication2
 
                 packet = System.Text.Encoding.UTF8.GetString(buffer).Substring(0, packetlength);
 
-                /*gameList.Invoke((MethodInvoker)delegate ()
+                gameList.Invoke((MethodInvoker)delegate ()
                 {
                     string message = "packet recu : " + packet;
                     gameList.Items.Add(message);
                     gameList.SelectedIndex = gameList.Items.Count - 1;
-                });*/
+                });
 
                 Handler(packet);
             }
@@ -87,6 +87,8 @@ namespace WindowsFormsApplication2
             try
             {
                 string[] packetSpace = packet.Split(' ');
+
+                SendPacket("ok");
 
                 if (packetSpace[0] == "match" && packetSpace.Length == 2)
                 {
@@ -203,6 +205,7 @@ namespace WindowsFormsApplication2
                         }
                     }
                 }
+
                 if (packetSpace[0] == "end" && packetSpace.Length == 1)
                 {
                     CloseGameOpenUI();
