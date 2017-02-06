@@ -18,6 +18,8 @@ namespace WindowsFormsApplication2
         public string Username = String.Empty;
         public string Password = String.Empty;
 
+        Form MyMainUI;
+
         public loginForm()
         {
             this.DoubleBuffered = true;
@@ -68,12 +70,14 @@ namespace WindowsFormsApplication2
                     case 1:
                         Username = id;
                         Password = pw;
-
+                         
                         Client.connectServer("127.0.0.1", 8080, Username);
 
-                        Form form = new mainUI(Username, Password);
-                        form.Show();
+                        MyMainUI = new mainUI(Username, Password);
+                        MyMainUI.Show();
+
                         this.Hide();
+
                         break;
 
                     default:
@@ -91,6 +95,14 @@ namespace WindowsFormsApplication2
         private void loginForm_Load(object sender, EventArgs e)
         {
             this.ActiveControl = bunifuMetroTextbox1;
+
+            /* ---------------------------------------------------- */
+            
+            /*gameForm testForm = new gameForm();
+            testForm.Show();
+            testForm.Hide();*/
+
+            /* ---------------------------------------------------- */
         }
 
         private void loginForm_FormClosing(object sender, FormClosingEventArgs e)

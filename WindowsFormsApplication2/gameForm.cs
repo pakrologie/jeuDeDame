@@ -19,41 +19,38 @@ namespace WindowsFormsApplication2
         private bool mouseDown;
         private Point lastLocation;
 
-        ImagesManager IM;
-        Plateau Plt;
-        Animation An;
-        Action Act;
-        PacketHandler Ph;
+        /* Classes */
+        Plateau myPlateau;
+        ImagesManager MyImagesManager;
+        PacketHandler MyPacketHandler;
+        Client MyClient;
+        Form MyMainUI;
+        Animation MyAnim;
 
-        public bool boardCreated = false;
-
-        public gameForm()
+        public gameForm(Form _MyMainUI)
         {
             this.DoubleBuffered = true;
             InitializeComponent();
-            
-            Plt = new Plateau(gamePanel);
-            IM = new ImagesManager(gamePanel);
-            An = new Animation(gamePanel);
-            Act = new Action(gamePanel);
-            Ph = new PacketHandler(gamePanel, listBox2);
+
+            MyMainUI = _MyMainUI;
+
+            myPlateau = new Plateau(gamePanel);
+            MyImagesManager = new ImagesManager(gamePanel);
+            MyPacketHandler = new PacketHandler(this.gamePanel, this.listBox2, this);
+            MyClient = new Client(this.gamePanel, this.listBox2, this, MyMainUI);
+            MyAnim = new Animation(this.gamePanel);
         }
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
             bunifuFormFadeTransition1.ShowAsyc(this);
-            Plt.remplirPlateau();
+
+            myPlateau.remplirPlateau();
         }
 
         private void gamePanel_Paint(object sender, PaintEventArgs e)
         {
-            if (!boardCreated)
-            {
-                Plateau.PaintEventForm1(gamePanel.Width, gamePanel.Height, e);
-                IM.createPictureBox();
-                
-                boardCreated = true;
-            }
+            Plateau.PaintEventForm1(gamePanel.Width, gamePanel.Height, e);
         }
 
         private void gameForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -87,17 +84,7 @@ namespace WindowsFormsApplication2
         {
             mouseDown = false;
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void leftPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
+        
         private void panel3_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
@@ -171,7 +158,9 @@ namespace WindowsFormsApplication2
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            Form backToMainUI = new loginForm();
+            backToMainUI.Show();
+            this.Close();
         }
 
         private void listBox2_DrawItem(object sender, DrawItemEventArgs e)
@@ -203,6 +192,13 @@ namespace WindowsFormsApplication2
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void bunifuFlatButton6_Click(object sender, EventArgs e)
+        {
+            Form backToMainUI = new loginForm();
+            backToMainUI.Show();
+            this.Close();
         }
     }
 }

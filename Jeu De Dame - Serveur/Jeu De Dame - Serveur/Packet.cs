@@ -92,42 +92,45 @@ namespace Jeu_De_Dame___Serveur
             {
                 if (More.s_int(packetSpace[2]) == 0 || More.s_int(packetSpace[2]) == 1)
                 {
-                    string pseudoByPacket = packetSpace[1];
-                    int playerTopByPacket = More.s_int(packetSpace[2]);
-                    string opponentByPacket = packetSpace[3];
-
-                    // Traitement du match
-                    int IndexClient = ClientManager.byPseudo(pseudoByPacket);
-
-                    Console.WriteLine(IndexClient.ToString());
-
-                    if (IndexClient == -1)
+                    if (!isPlaying.info_main.iswait)
                     {
-                        return false;
-                    }
+                        string pseudoByPacket = packetSpace[1];
+                        int playerTopByPacket = More.s_int(packetSpace[2]);
+                        string opponentByPacket = packetSpace[3];
 
-                    isPlaying.info_game.opponent = opponentByPacket;
-                    isPlaying.info_main.playerTop = Convert.ToBoolean(playerTopByPacket);
-                    isPlaying.info_game.tour = Convert.ToBoolean(playerTopByPacket);
-
-                    string PseudoClient = ClientManager.ListClient[IndexClient].info_main.pseudo;
-                    string PseudoOpponent = ClientManager.ListClient[IndexClient].info_game.opponent;
-
-                    Console.WriteLine("Nouveau match : " + PseudoClient + " Vs : " + PseudoOpponent);
-
-                    int IndexOpponent = ClientManager.byPseudo(PseudoOpponent);
-
-                    if (IndexOpponent != -1)
-                    {
-                        if (Match.startGame(IndexClient, IndexOpponent))
+                        // Traitement du match
+                        int IndexClient = ClientManager.byPseudo(pseudoByPacket);
+                        
+                        if (IndexClient == -1)
                         {
-                            Console.WriteLine("Les deux joueurs sont prets ...");
-                            return true;
+                            return false;
                         }
-                    }
 
-                    Console.WriteLine("L'autre joueur n'est pas encore pret ...");
-                    return true;
+                        isPlaying.info_main.iswait = true;
+
+                        isPlaying.info_game.opponent = opponentByPacket;
+                        isPlaying.info_main.playerTop = Convert.ToBoolean(playerTopByPacket);
+                        isPlaying.info_game.tour = Convert.ToBoolean(playerTopByPacket);
+
+                        string PseudoClient = ClientManager.ListClient[IndexClient].info_main.pseudo;
+                        string PseudoOpponent = ClientManager.ListClient[IndexClient].info_game.opponent;
+
+                        Console.WriteLine("Nouveau match : " + PseudoClient + " Vs : " + PseudoOpponent);
+
+                        int IndexOpponent = ClientManager.byPseudo(PseudoOpponent);
+
+                        if (IndexOpponent != -1)
+                        {
+                            if (Match.startGame(IndexClient, IndexOpponent))
+                            {
+                                Console.WriteLine("Les deux joueurs sont prets ...");
+                                return true;
+                            }
+                        }
+
+                        Console.WriteLine("L'autre joueur n'est pas encore pret ...");
+                        return true;
+                    }
                 }
             }
             return false;

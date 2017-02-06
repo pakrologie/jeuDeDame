@@ -69,7 +69,7 @@ namespace Jeu_De_Dame___Serveur
                     return false;
                 }
 
-                //sendAnimation(isPlaying, (int)BunifuAnimatorNS.AnimationType.Transparent, x, y);
+                sendAnimation(isPlaying, (int)BunifuAnimatorNS.AnimationType.Transparent, x, y);
 
                 Careful.resetNotCarefulOpponent(Opponent);
 
@@ -93,7 +93,7 @@ namespace Jeu_De_Dame___Serveur
                     int xPawn = Distance.xPawn;
                     int yPawn = Distance.yPawn;
 
-                    //sendAnimation(isPlaying, (int)BunifuAnimatorNS.AnimationType.Particles, xPawn, yPawn);
+                    sendAnimation(isPlaying, (int)BunifuAnimatorNS.AnimationType.Particles, xPawn, yPawn);
 
                     setCase(isPlaying, xPawn, yPawn);
 

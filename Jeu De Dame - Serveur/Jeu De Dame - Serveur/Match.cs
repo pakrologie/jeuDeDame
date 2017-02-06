@@ -27,6 +27,12 @@ namespace Jeu_De_Dame___Serveur
                 return false;
             }
 
+            if (!ClientManager.ListClient[IndexJoueur1].info_main.iswait ||
+               !ClientManager.ListClient[IndexJoueur2].info_main.iswait)
+            {
+                return false;
+            }
+
             if (ClientManager.ListClient[IndexJoueur1].info_game.isplaying ||
                 ClientManager.ListClient[IndexJoueur2].info_game.isplaying)
             {

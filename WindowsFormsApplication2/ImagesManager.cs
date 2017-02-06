@@ -16,7 +16,7 @@ namespace WindowsFormsApplication2
         int ySelected = -1;
 
         bool onClick = false;
-
+        
         public ImagesManager(Panel _panelMain) // constructeur
         {
             panelMain = _panelMain;
@@ -94,7 +94,34 @@ namespace WindowsFormsApplication2
 
                         pb.Image = img;
 
-                        panelMain.Controls.Add(pb);
+                        try
+                        {
+                            panelMain.Controls.Add(pb);
+                        }catch(Exception ex)
+                        { }
+                    }
+                }
+            }
+        }
+
+        public void resetPlateau()
+        {
+            for (int y = 0; y < Plateau.countHorizontal; y++)
+            {
+                for (int x = 0; x < Plateau.countVertical; x++)
+                {
+                    if (Plateau.plateauCases[y][x].isBlack)
+                    {
+                        Plateau.plateauCases[y][x].pb.Image = null;
+                        if (y < 3) // Pion du haut
+                        {
+                            Plateau.plateauCases[y][x].pb.Image = (Bitmap)getPawnImgByPlayer(true);
+
+                        }
+                        if (y > 6) // Pion du bas
+                        {
+                            Plateau.plateauCases[y][x].pb.Image = (Bitmap)getPawnImgByPlayer(false);
+                        }
                     }
                 }
             }

@@ -28,6 +28,7 @@ namespace Jeu_De_Dame___Serveur
         {
             public string pseudo;
             public bool playerTop;
+            public bool iswait;
         }
 
         public struct game
@@ -70,10 +71,13 @@ namespace Jeu_De_Dame___Serveur
         
         public void Send(string packet)
         {
-            Console.WriteLine(this.info_main.pseudo + " (" + packet + ") envoyé");
-            MySocket.Send(System.Text.Encoding.UTF8.GetBytes(packet));
+            if (MySocket.Connected)
+            {
+                Console.WriteLine(this.info_main.pseudo + " (" + packet + ") envoyé");
+                MySocket.Send(System.Text.Encoding.UTF8.GetBytes(packet));
 
-            System.Threading.Thread.Sleep(20);
+                System.Threading.Thread.Sleep(20);
+            }
         }
 
         public void SendMsg(string message)
@@ -142,18 +146,24 @@ namespace Jeu_De_Dame___Serveur
 
         public static void RedirectEnding(Client PlayerDefeat, bool forfeit)
         {
-            int IndexOpponent = byPseudo(PlayerDefeat.info_game.opponent);
-            
-            if (IndexOpponent == -1)
+            if (PlayerDefeat.info_game.isplaying)
             {
-                return;
+                int IndexOpponent = byPseudo(PlayerDefeat.info_game.opponent);
+
+                if (IndexOpponent == -1)
+                {
+                    return;
+                }
+
+                if (ListClient[IndexOpponent].info_game.isplaying)
+                {
+                    PlayerDefeat.info_game.isplaying = false;
+                    ListClient[IndexOpponent].info_game.isplaying = false;
+
+                    Victory(ListClient[IndexOpponent], forfeit);
+                    Defeat(PlayerDefeat, forfeit);
+                }
             }
-
-            PlayerDefeat.info_game.isplaying = false;
-            ListClient[IndexOpponent].info_game.isplaying = false;
-
-            Victory(ListClient[IndexOpponent], forfeit);
-            Defeat(PlayerDefeat, forfeit);
         }
 
         public static void Victory(Client PlayerVictory, bool forfeit)
@@ -166,6 +176,8 @@ namespace Jeu_De_Dame___Serveur
             {
                 PlayerVictory.Send("msg_final Félicitation! Vous avez réussi à battre votre adversaire, vous avez gagné !");
             }
+            PlayerVictory.info_game.isplaying = false;
+            PlayerVictory.info_main.iswait = false;
         }
 
         public static void Defeat(Client PlayerDefeat, bool forfeit)
@@ -173,6 +185,9 @@ namespace Jeu_De_Dame___Serveur
             if (!forfeit)
             {
                 PlayerDefeat.Send("msg_final Vous avez perdu !");
+
+                PlayerDefeat.info_game.isplaying = false;
+                PlayerDefeat.info_main.iswait = false;
             }
         }
     }

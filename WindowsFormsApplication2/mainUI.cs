@@ -11,22 +11,30 @@ using System.Windows.Forms;
 namespace WindowsFormsApplication2
 {
     public partial class mainUI : Form
-    {
+    {   
         private string url = "http://omega-team.net/app/";
         public static string _Username = String.Empty;
         public static string _Password = String.Empty;
+
         private bool canPlay = true;
 
-        static Client myClient;
-
+        Form MyGameForm;
+        
         public mainUI(string Username, string Password)
         {
             this.DoubleBuffered = true;
             InitializeComponent();
+
             _Username = Username;
             _Password = Password;
-        }
 
+            MyGameForm = new gameForm(this);
+
+            MyGameForm.Show();
+            MyGameForm.Hide();
+           
+        }
+        
         private void Disconnect()
         {
             Form loginForm = new loginForm();
@@ -97,41 +105,36 @@ namespace WindowsFormsApplication2
                 var t = new System.Threading.Timer(o => CheckCon(_Username, _Password),
                     null, startin * 1000, 30000);
         }
-           
         
-
         private void mainUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
-        }
-
-        private void bunifuTileButton1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bunifuTileButton6_Click(object sender, EventArgs e)
-        {
-            if (canPlay)
-            {
-                Client.SendPacket("newMatch " + _Username + " 1 a");
-            }
+            Environment.Exit(1);
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(1);
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        
+        private void bunifuTileButton6_Click(object sender, EventArgs e)
         {
+            if (canPlay)
+            {
+                string _Opponent = "a";
+                int istop = 0;
 
+                if (_Username == "a")
+                {
+                    _Opponent = "garillos";
+                    istop = 1;
+                }
+                Client.SendPacket("newMatch " + _Username + " " + istop + " " + _Opponent);
+            }
         }
-
     }
 }

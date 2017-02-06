@@ -21,8 +21,9 @@ namespace Jeu_De_Dame___Serveur
                     Timer(i);
                 }
                 mut.ReleaseMutex();
+
+                Thread.Sleep(20);
             }
-            Thread.Sleep(20);
         }
 
         public static void Timer(int IndexClient)

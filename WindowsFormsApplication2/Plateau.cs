@@ -17,8 +17,10 @@ namespace WindowsFormsApplication2
         public static int countHorizontal = 0;
         public static int countVertical = 0;
 
+        public static bool boardCreated = false;
+
         public static cases[][] plateauCases = new cases[casesCount][];
-        Panel panelMain;
+        public static Panel panelMain;
 
         public Plateau(Panel _panelMain)
         {
@@ -32,9 +34,6 @@ namespace WindowsFormsApplication2
             public PictureBox pb;
             public bool pawnExist;
             public bool pawnTop;
-            public bool king;
-            public bool isnotcareful;
-            public bool mainCombo;
         }
 
         public void remplirPlateau()
@@ -81,46 +80,56 @@ namespace WindowsFormsApplication2
 
         public static void PaintEventForm1(int width, int height, PaintEventArgs e)
         {
-            int countRec = 0;
-            int formWidth = width;
-            int formHeight = height;
-            int penWidth = 1;
-
-            Pen myPen = new Pen(new SolidBrush(Color.Black), penWidth);
-
-            for (int i = recHeight; i <= formHeight; i += recHeight) //dessine les lignes horizontales
+            if (!boardCreated)
             {
-                e.Graphics.DrawLine(myPen, 0, i, formWidth, i);
-                countHorizontal++;
-            }
+                int countRec = 0;
+                int formWidth = width;
+                int formHeight = height;
+                int penWidth = 1;
 
-            for (int i = recWidth; i <= formWidth; i += recWidth) //dessine les lignes verticales
-            {
-                e.Graphics.DrawLine(myPen, i, 0, i, formHeight);
-                countVertical++;
-            }
+                Pen myPen = new Pen(new SolidBrush(Color.Black), penWidth);
 
-            countRec = countHorizontal * countVertical;
-
-            for (int x = 0; x < countHorizontal; x++) // Récupère les rectangles
-            {
-                for (int y = 0; y < countVertical; y++)
+                for (int i = recHeight; i <= formHeight; i += recHeight) //dessine les lignes horizontales
                 {
-                    Rectangle newRec = new Rectangle(recHeight * y, recWidth * x, recWidth, recHeight);
-                    plateauCases[x][y].Rec = newRec;
+                    e.Graphics.DrawLine(myPen, 0, i, formWidth, i);
+                    countHorizontal++;
                 }
-            }
 
-            for (int x = 0; x < plateauCases.Length; x++) // Colorie les cases
-            {
-                for (int y = 0; y < plateauCases[x].Length; y++)
+                for (int i = recWidth; i <= formWidth; i += recWidth) //dessine les lignes verticales
                 {
-                    if (plateauCases[x][y].isBlack)
+                    e.Graphics.DrawLine(myPen, i, 0, i, formHeight);
+                    countVertical++;
+                }
+
+                countRec = countHorizontal * countVertical;
+
+                for (int x = 0; x < countHorizontal; x++) // Récupère les rectangles
+                {
+                    for (int y = 0; y < countVertical; y++)
                     {
-                        e.Graphics.FillRectangle(new SolidBrush(Color.Black), plateauCases[x][y].Rec);
+                        Rectangle newRec = new Rectangle(recHeight * y, recWidth * x, recWidth, recHeight);
+                        plateauCases[x][y].Rec = newRec;
                     }
                 }
+
+                for (int x = 0; x < plateauCases.Length; x++) // Colorie les cases
+                {
+                    for (int y = 0; y < plateauCases[x].Length; y++)
+                    {
+                        if (plateauCases[x][y].isBlack)
+                        {
+                            e.Graphics.FillRectangle(new SolidBrush(Color.Black), plateauCases[x][y].Rec);
+                        }
+                    }
+                }
+
+                boardCreated = true;
+
+                ImagesManager MyImagesM = new ImagesManager(panelMain);
+
+                MyImagesM.createPictureBox();
             }
+              
         }
     }
 }

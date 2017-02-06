@@ -18,30 +18,34 @@ namespace WindowsFormsApplication2
 
         private static void transitionAnimationCompleted(object sender, BunifuAnimatorNS.AnimationCompletedEventArg e)
         {
-            if (panelMain.InvokeRequired)
+            panelMain.Invoke((MethodInvoker)delegate ()
             {
-                panelMain.Invoke(new changeEnabledPanel(changeEnabledPanel_));
-            }
-        }
-        
-        delegate void changeEnabledPanel();
-        public static void changeEnabledPanel_()
-        {
-            panelMain.Enabled = true;
+                panelMain.Enabled = true;
+            });
         }
 
         public static void makeTransition(int type, int x, int y)
         {
-            panelMain.Enabled = false;
-            Plateau.plateauCases[y][x].pb.Visible = false;
+            panelMain.Invoke((MethodInvoker)delegate ()
+            {
+                panelMain.Enabled = false;
+            });
+
+            Plateau.plateauCases[y][x].pb.Invoke((MethodInvoker)delegate ()
+            {
+                Plateau.plateauCases[y][x].pb.Visible = false;
+            });
 
             BunifuAnimatorNS.BunifuTransition transition = new BunifuAnimatorNS.BunifuTransition();
             transition.AnimationCompleted += (transitionAnimationCompleted);
             transition.AnimationType = (BunifuAnimatorNS.AnimationType)type;
-            transition.Interval = 5;
+            transition.Interval = 10;
             transition.ShowSync(Plateau.plateauCases[y][x].pb);
 
-            Plateau.plateauCases[y][x].pb.Visible = true;
+            Plateau.plateauCases[y][x].pb.Invoke((MethodInvoker)delegate ()
+            {
+                Plateau.plateauCases[y][x].pb.Visible = true;
+            });
         }
     }
 }
