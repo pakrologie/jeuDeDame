@@ -15,7 +15,7 @@ namespace Jeu_De_Dame___Serveur
             CheckTimeThr = new Thread(CheckTime.CheckDuration);
             CheckTimeThr.Start();
 
-            initializeServer.start("127.0.0.1", 8080);
+            initializeServer.start("25.76.174.33", 8080);
         }
     }
 }

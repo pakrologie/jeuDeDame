@@ -90,7 +90,11 @@ namespace WindowsFormsApplication2
 
                 if (packetSpace[0] == "match" && packetSpace.Length == 2)
                 {
-                    MyMainUIForm.Hide();
+                    MyMainUIForm.Invoke((MethodInvoker)delegate ()
+                    {
+                        MyMainUIForm.Hide();
+                    });
+
                     MyGameForm.Invoke((MethodInvoker)delegate () {
                         MyGameForm.Show();
                     });

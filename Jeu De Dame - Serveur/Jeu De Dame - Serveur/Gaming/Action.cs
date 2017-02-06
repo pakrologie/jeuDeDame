@@ -11,7 +11,6 @@ namespace Jeu_De_Dame___Serveur
 {
     class Action
     {
-
         public static bool pawnMoving(Client isPlaying, int x, int y, int xSelected, int ySelected)
         {
             if (isPlaying.info_game.asked)

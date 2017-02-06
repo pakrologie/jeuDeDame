@@ -71,7 +71,7 @@ namespace WindowsFormsApplication2
                         Username = id;
                         Password = pw;
                          
-                        Client.connectServer("127.0.0.1", 8080, Username);
+                        Client.connectServer("25.76.174.33", 8080, Username);
 
                         MyMainUI = new mainUI(Username, Password);
                         MyMainUI.Show();
