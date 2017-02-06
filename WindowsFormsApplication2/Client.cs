@@ -79,7 +79,10 @@ namespace WindowsFormsApplication2
 
         public static void SendPacket(string packet)
         {
-            MySocket.Send(System.Text.Encoding.UTF8.GetBytes(packet));
+            if (MySocket.Connected)
+            {
+                MySocket.Send(System.Text.Encoding.UTF8.GetBytes(packet));
+            }
         }
 
         public static void Handler(string packet)
