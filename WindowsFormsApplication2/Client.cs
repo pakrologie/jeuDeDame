@@ -81,7 +81,10 @@ namespace WindowsFormsApplication2
         {
             if (MySocket.Connected)
             {
-                MySocket.Send(System.Text.Encoding.UTF8.GetBytes(packet));
+                if (!String.IsNullOrWhiteSpace(packet))
+                {
+                    MySocket.Send(System.Text.Encoding.UTF8.GetBytes(packet));
+                }
             }
         }
 

@@ -94,7 +94,10 @@ namespace Jeu_De_Dame___Serveur
         {
             if (MySocket.Connected)
             {
-                PacketToSend.Add(packet);
+                if (!String.IsNullOrWhiteSpace(packet))
+                {
+                    PacketToSend.Add(packet);
+                }
             }
         }
 
