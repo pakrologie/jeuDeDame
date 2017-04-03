@@ -15,15 +15,7 @@ namespace Jeu_De_Dame___Serveur
             CheckTimeThr = new Thread(CheckTime.CheckDuration);
             CheckTimeThr.Start();
 
-			Console.WriteLine("Thread : CheckTime : OK!");
-
-			if (RequeteSQL.Initialisation())
-			{
-				Console.WriteLine("SQL : OK!");
-				initializeServer.start("25.76.21.163", 8080);
-			}
-
-            
-        }   
+            initializeServer.start("25.76.21.163", 8080);
+        }
     }
 }

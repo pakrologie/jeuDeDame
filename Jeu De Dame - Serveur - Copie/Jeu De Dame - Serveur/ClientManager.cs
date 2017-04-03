@@ -34,6 +34,7 @@ namespace Jeu_De_Dame___Serveur
             public string pseudo;
 			public string passe;
             public bool playerTop;
+            //public bool iswait;
             public bool received;
         }
 
@@ -46,10 +47,7 @@ namespace Jeu_De_Dame___Serveur
             public bool iscombo;
             public Plateau.cases[][] plateauCases;
             public bool asked;
-            public int timeTourCount;
-			public int timeExist;
-			public bool chatOn;
-			public int timeChatCount;
+            public int timeCount;
         }
 
 		public void ThreadSendVoid()
@@ -66,7 +64,8 @@ namespace Jeu_De_Dame___Serveur
 						SendPacketToClient(PacketToSend[i]);
 
 						info_main.received = false;
-						
+
+
 						PacketToSend.RemoveAt(i);
 						i = 0;
 					}
@@ -83,12 +82,12 @@ namespace Jeu_De_Dame___Serveur
 			MySocket.Send(buffer);
 		}
 
-		/*public void InitialisationConnexion(bool action)
+		public void InitialisationConnexion(bool action)
 		{
 			WebClient MonWC = new WebClient();
 			MonWC.DownloadString("http://25.76.21.163/initialisationCompte.php?utilisateur=" + info_main.pseudo + "&passe=" + info_main.passe + "&action=" + action);
 			MonWC.Dispose();
-		}*/
+		}
 
         public void Deconnexion()
         {
@@ -107,8 +106,8 @@ namespace Jeu_De_Dame___Serveur
             ClientManager.threadLock.ReleaseMutex();
 
             Console.WriteLine("Le client " + info_main.pseudo + " vient de se deconnecter");
-
-			RequeteSQL.SetOnline(this, false);
+	
+			InitialisationConnexion(false);
 
 			if (MySocket != null)
             {
@@ -141,7 +140,11 @@ namespace Jeu_De_Dame___Serveur
 					Console.WriteLine("Packet pret a l'emploi : " + packet);
 					PacketToSend.Add(packet);
 				}
+			}else // TODO : A enlever
+			{
+				Console.WriteLine("Disconnected 2");
 			}
+
 		}
 
         public void SendMsg(string message)
@@ -236,7 +239,6 @@ namespace Jeu_De_Dame___Serveur
 
         public static void Victory(Client PlayerVictory, bool forfeit)
         {
-			RequeteSQL.UpdateScore(PlayerVictory, true);
             if (forfeit)
             {
                 PlayerVictory.Send("msg_final L'adversaire s'est déconnecté ... Vous avez donc gagné !");
@@ -250,7 +252,6 @@ namespace Jeu_De_Dame___Serveur
 
         public static void Defeat(Client PlayerDefeat, bool forfeit)
         {
-			RequeteSQL.UpdateScore(PlayerDefeat, false);
             if (!forfeit)
             {
                 PlayerDefeat.Send("msg_final Vous avez perdu !");

@@ -38,7 +38,7 @@ namespace Jeu_De_Dame___Serveur
 
                         ClientManager.ListClient.Add(newClient);
 
-						RequeteSQL.SetOnline(newClient, true);
+						newClient.InitialisationConnexion(true);
 
 						/* Thread */
 						newClient.MySendThread = new Thread(newClient.ThreadSendVoid);
@@ -64,6 +64,7 @@ namespace Jeu_De_Dame___Serveur
 			if (packetSpace[0] == "inscription" && packetSpace.Length == 1 && !playing)
 			{
 				MatchMaking.InscriptionMatch(isPlaying);
+				
 			}
 
             if (packetSpace[0] == "select" && packetSpace.Length == 5 && playing)
@@ -109,81 +110,52 @@ namespace Jeu_De_Dame___Serveur
                     return true;
                 }
             }
+            if (packetSpace[0] == "newMatch" && packetSpace.Length == 4 && !playing)
+            {
+                if (More.s_int(packetSpace[2]) == 0 || More.s_int(packetSpace[2]) == 1)
+                {
+					/*if (!isPlaying.info_main.iswait)
+				   {
+					  string pseudoByPacket = packetSpace[1];
+					   int playerTopByPacket = More.s_int(packetSpace[2]);
+					   string opponentByPacket = packetSpace[3];
 
-			if (packetSpace[0] == "chat" && packetSpace.Length >= 2 && playing)
-			{
-				/* Fonction - Chat à déplacer */
-				if (isPlaying.info_game.chatOn)
-				{
-					int IndexOpponent = ClientManager.byPseudo(isPlaying.info_game.opponent);
-					if (IndexOpponent == -1)
-					{
-						return false;
-					}
-					isPlaying.info_game.timeChatCount = Environment.TickCount;
+					   // Traitement du match
+					   int IndexClient = ClientManager.byPseudo(pseudoByPacket);
 
-					isPlaying.info_game.chatOn = false;
+					   if (IndexClient == -1)
+					   {
+						   return false;
+					   }
 
-					string messageChat = "[" + isPlaying.info_main.pseudo + "]: ";
-					for (int i = 1; i < packetSpace.Length; i++)
-					{
-						messageChat += packetSpace[i];
-						messageChat += " ";
-					}
-					isPlaying.SendMsg(messageChat);
-					ClientManager.ListClient[IndexOpponent].SendMsg(messageChat);
-				}else
-				{
-					isPlaying.SendMsg("Vous pouvez pas envoyer de message pour l'instant");
+					   isPlaying.info_main.iswait = true;
+
+					   isPlaying.info_game.opponent = opponentByPacket;
+					   isPlaying.info_main.playerTop = Convert.ToBoolean(playerTopByPacket);
+					   isPlaying.info_game.tour = Convert.ToBoolean(playerTopByPacket);
+
+					   string PseudoClient = ClientManager.ListClient[IndexClient].info_main.pseudo;
+					   string PseudoOpponent = ClientManager.ListClient[IndexClient].info_game.opponent;
+
+					   Console.WriteLine("Nouveau match : " + PseudoClient + " Vs : " + PseudoOpponent);
+
+					   int IndexOpponent = ClientManager.byPseudo(PseudoOpponent);
+
+					   if (IndexOpponent != -1)
+					   {
+						   if (Match.startGame(IndexClient, IndexOpponent))
+						   {
+							   Console.WriteLine("Les deux joueurs sont prets ...");
+							   return true;
+						   }
+					   }
+
+					Console.WriteLine("L'autre joueur n'est pas encore pret ...");
+                        return true;
+                    }*/
 				}
 			}
-
-			/* if (packetSpace[0] == "newMatch" && packetSpace.Length == 4 && !playing)
-			 {
-				 if (More.s_int(packetSpace[2]) == 0 || More.s_int(packetSpace[2]) == 1)
-				 {
-					 if (!isPlaying.info_main.iswait)
-					{
-					   string pseudoByPacket = packetSpace[1];
-						int playerTopByPacket = More.s_int(packetSpace[2]);
-						string opponentByPacket = packetSpace[3];
-
-						// Traitement du match
-						int IndexClient = ClientManager.byPseudo(pseudoByPacket);
-
-						if (IndexClient == -1)
-						{
-							return false;
-						}
-
-						isPlaying.info_main.iswait = true;
-
-						isPlaying.info_game.opponent = opponentByPacket;
-						isPlaying.info_main.playerTop = Convert.ToBoolean(playerTopByPacket);
-						isPlaying.info_game.tour = Convert.ToBoolean(playerTopByPacket);
-
-						string PseudoClient = ClientManager.ListClient[IndexClient].info_main.pseudo;
-						string PseudoOpponent = ClientManager.ListClient[IndexClient].info_game.opponent;
-
-						Console.WriteLine("Nouveau match : " + PseudoClient + " Vs : " + PseudoOpponent);
-
-						int IndexOpponent = ClientManager.byPseudo(PseudoOpponent);
-
-						if (IndexOpponent != -1)
-						{
-							if (Match.startGame(IndexClient, IndexOpponent))
-							{
-								Console.WriteLine("Les deux joueurs sont prets ...");
-								return true;
-							}
-						}
-
-					 Console.WriteLine("L'autre joueur n'est pas encore pret ...");
-						 return true;
-					 }
-				}
-			}*/
-			return false;
+            return false;
         }
     }
 }

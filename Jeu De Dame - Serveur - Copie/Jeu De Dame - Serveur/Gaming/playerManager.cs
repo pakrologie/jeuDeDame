@@ -19,11 +19,8 @@ namespace Jeu_De_Dame___Serveur
                 return;
             }
 
-            ClientManager.ListClient[IndexClient].info_game.timeTourCount = Environment.TickCount;
-            ClientManager.ListClient[IndexOpponent].info_game.timeTourCount = Environment.TickCount;
-
-			ClientManager.ListClient[IndexClient].info_game.timeExist = 0;
-			ClientManager.ListClient[IndexOpponent].info_game.timeExist = 0;
+            ClientManager.ListClient[IndexClient].info_game.timeCount = Environment.TickCount;
+            ClientManager.ListClient[IndexOpponent].info_game.timeCount = Environment.TickCount;
 
             if (IsPlaying.info_game.tour)
             {
@@ -35,7 +32,7 @@ namespace Jeu_De_Dame___Serveur
             {
                 ClientManager.ListClient[IndexClient].SendMsg("Partie terminée");
                 ClientManager.ListClient[IndexOpponent].SendMsg("Partie terminée");
-                ClientManager.RedirectEnding(WhosNext(IsPlaying), false);
+                ClientManager.RedirectEnding(IsPlaying, false);
             }
         }
 

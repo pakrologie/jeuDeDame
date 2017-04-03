@@ -55,7 +55,7 @@ namespace Jeu_De_Dame___Serveur
             Match.SynchroWithOpponents(Opponent);
         }
 
-        public static void checkJumpingNotPlayed(Client isPlaying, int myX, int myY, bool noPawn = false)
+        public static void checkJumpingNotPlayed(Client isPlaying, int myX, int myY)
         {
             int IndexClient = ClientManager.byPseudo(isPlaying.info_main.pseudo);
 
@@ -70,7 +70,7 @@ namespace Jeu_De_Dame___Serveur
                 for (int x1 = 0; x1 < ClientManager.ListClient[IndexClient].info_game.plateauCases[y1].Length; x1++)
                 {
                     if (ClientManager.ListClient[IndexClient].info_game.plateauCases[y1][x1].pawnTop == playerTop &&
-                        ClientManager.ListClient[IndexClient].info_game.plateauCases[y1][x1].pawnExist && (ClientManager.ListClient[IndexClient].info_game.plateauCases[y1][x1].Rec != ClientManager.ListClient[IndexClient].info_game.plateauCases[myY][myX].Rec) || noPawn)
+                        ClientManager.ListClient[IndexClient].info_game.plateauCases[y1][x1].pawnExist && (ClientManager.ListClient[IndexClient].info_game.plateauCases[y1][x1].Rec != ClientManager.ListClient[IndexClient].info_game.plateauCases[myY][myX].Rec))
                     {
                         for (int y2 = 0; y2 < ClientManager.ListClient[IndexClient].info_game.plateauCases.Length; y2++)
                         {

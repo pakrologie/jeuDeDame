@@ -22,7 +22,6 @@ namespace WindowsFormsApplication2
         /* Classes */
         Plateau myPlateau;
         ImagesManager MyImagesManager;
-        PacketHandler MyPacketHandler;
         Client MyClient;
         Form MyMainUI;
         Animation MyAnim;
@@ -36,7 +35,6 @@ namespace WindowsFormsApplication2
 
             myPlateau = new Plateau(gamePanel);
             MyImagesManager = new ImagesManager(gamePanel);
-            MyPacketHandler = new PacketHandler(this.gamePanel, this.listBox2, this);
             MyClient = new Client(this.gamePanel, this.listBox2, this, MyMainUI);
             MyAnim = new Animation(this.gamePanel);
         }

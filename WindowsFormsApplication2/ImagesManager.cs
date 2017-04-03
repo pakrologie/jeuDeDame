@@ -47,7 +47,6 @@ namespace WindowsFormsApplication2
                     int y = controlObject.Location.Y / 50;
 
                     Client.SendPacket("select " + x + " " + y + " " + xSelected + " " + ySelected);
-                    //pawnMoving
                 }
                 catch (Exception ex)
                 { }

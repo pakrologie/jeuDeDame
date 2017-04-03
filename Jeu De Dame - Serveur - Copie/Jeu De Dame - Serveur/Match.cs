@@ -49,15 +49,15 @@ namespace Jeu_De_Dame___Serveur
                 pseudoBot = ClientManager.ListClient[IndexJoueur1].info_main.pseudo;
             }
 
-			ClientManager.ListClient[IndexJoueur1].info_game.timeTourCount = Environment.TickCount;
-            ClientManager.ListClient[IndexJoueur2].info_game.timeTourCount = Environment.TickCount;
+			ClientManager.ListClient[IndexJoueur1].info_game.timeCount = Environment.TickCount;
+            ClientManager.ListClient[IndexJoueur2].info_game.timeCount = Environment.TickCount;
 
             ClientManager.ListClient[IndexJoueur1].info_game.isplaying = true;
             ClientManager.ListClient[IndexJoueur2].info_game.isplaying = true;
 
             ClientManager.ListClient[IndexJoueur1].info_game.pawnAlive = 15;
             ClientManager.ListClient[IndexJoueur2].info_game.pawnAlive = 15;
-			
+
             ClientManager.ListClient[IndexJoueur1].info_game.plateauCases = new Plateau.cases[10][];
             ClientManager.ListClient[IndexJoueur2].info_game.plateauCases = new Plateau.cases[10][];
 
